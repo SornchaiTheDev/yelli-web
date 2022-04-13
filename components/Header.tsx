@@ -15,7 +15,7 @@ function Header() {
         Yelli
       </h1>
       <select
-        className="absolute right-2 appearance-none rounded-lg p-1 w-fit"
+        className="absolute right-2 appearance-none rounded-lg p-1 w-fit text-center"
         onChange={handleLocaleChange}
         value={locale}
       >

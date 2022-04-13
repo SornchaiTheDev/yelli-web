@@ -2,12 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["images.unsplash.com"],
+    domains: ["firebasestorage.googleapis.com"],
   },
-  i18n : {
-    locales : ['en' , 'cn' , 'jp' , 'th'],
-    defaultLocale : 'th',
-  }
+  i18n: {
+    locales: ["en", "cn", "jp", "th"],
+    defaultLocale: "th",
+  },
 };
 
 module.exports = nextConfig;

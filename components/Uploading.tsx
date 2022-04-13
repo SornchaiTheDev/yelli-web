@@ -19,7 +19,13 @@ function Uploading() {
           : "上傳你的照片"}
       </h2>
       <h2 className="text-center">
-        {locale === "en" ? "Please wait for a while" : "กรุณารอสักครู่"}
+        {locale === "en"
+          ? "Please wait for a while"
+          : locale === "th"
+          ? "กรุณารอสักครู่"
+          : locale === "jp"
+          ? "しばらくお待ちください"
+          : "請稍等片刻"}
       </h2>
     </div>
   );

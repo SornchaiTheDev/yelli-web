@@ -1,14 +1,18 @@
-import type { NextPage } from "next";
+import type { NextPage, GetStaticProps } from "next";
 import { useState } from "react";
 import Head from "next/head";
-import DownloadBtn from "../components/DownloadBtn";
 import Header from "../components/Header";
 import ImagePreview from "../components/ImagePreview";
 import Uploading from "../components/Uploading";
-import { useRouter } from "next/router";
+import { store } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
-const Home: NextPage = () => {
-  const [isUploaded, setIsUploaded] = useState<boolean>(false);
+type Props = {
+  src: string | null;
+};
+const Home: NextPage<Props> = (props) => {
+  const { src } = props;
+
   return (
     <div className="bg-gray-900 min-h-screen">
       <Head>
@@ -16,17 +20,21 @@ const Home: NextPage = () => {
       </Head>
       <Header />
       <div className="mt-5 flex flex-col justify-start space-y-10 items-center">
-        {isUploaded ? (
-          <>
-            <ImagePreview />
-            <DownloadBtn />
-          </>
-        ) : (
-          <Uploading />
-        )}
+        {src !== null ? <ImagePreview src={src} /> : <Uploading />}
       </div>
     </div>
   );
 };
 
 export default Home;
+
+export const getStaticProps: GetStaticProps = async () => {
+  const docRef = doc(store, "upload", "wH53zwoP0QhhGh8WKl28");
+  const photo = await getDoc(docRef);
+  const isUploaded = photo.exists();
+  return {
+    props: {
+      src: isUploaded ? photo.data().src : null,
+    },
+  };
+};
