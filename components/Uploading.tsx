@@ -1,11 +1,10 @@
-import React from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Loading from "../assets/lottie/loading.json";
 import { useRouter } from "next/router";
 
 function Uploading() {
   const router = useRouter();
-  const { locale, defaultLocale } = router;
+  const { locale } = router;
   return (
     <div className="text-white font-bold text-xl">
       <Player style={{ width: 300, height: 300 }} loop autoplay src={Loading} />

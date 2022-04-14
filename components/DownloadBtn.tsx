@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import Download from "../public/icons/download.svg";
+import Image from "next/image";
 
 function DownloadBtn({ onClick }: { onClick: () => void }) {
   const router = useRouter();
@@ -9,7 +11,7 @@ function DownloadBtn({ onClick }: { onClick: () => void }) {
       onClick={onClick}
     >
       <div className="w-12 h-12 flex justify-center items-center p-4 bg-white drop-shadow-lg rounded-full">
-        <img src="icons/download.svg" />
+        <Image src={Download} layout="fixed" />
       </div>
       <h2 className="text-white font-semibold">
         {locale === "en"
