@@ -16,7 +16,7 @@ type Props = {
 const Home: NextPage<Props> = () => {
   const router = useRouter();
   const { photo } = router.query;
-  const [src, setSrc] = useState<string>("uploading");
+  const [src, setSrc] = useState<string>("");
   const [isExist, setIsExist] = useState<boolean>(true);
   useEffect(() => {
     const docId = photo as string;
@@ -40,7 +40,7 @@ const Home: NextPage<Props> = () => {
         ) : src === "uploading" ? (
           <Uploading />
         ) : (
-          <ImagePreview src={src} />
+          src.length > 0 && <ImagePreview src={src} />
         )}
       </div>
     </div>
