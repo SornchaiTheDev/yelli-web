@@ -30,12 +30,12 @@ const ImagePreview: NextPage<Photo> = (props) => {
     <>
       <div className="p-4 w-full h-full  flex justify-center">
         <a ref={downloadImage}></a>
-        <div className="w-1/2">
+        <div className="w-full lg:w-1/2">
           <Image
             className="rounded-lg"
             layout="responsive"
-            width={"90%"}
-            height={"60%"}
+            width={900}
+            height={600}
             src={src}
             onClick={handleDownload}
           />
