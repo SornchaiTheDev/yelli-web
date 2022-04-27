@@ -2,7 +2,7 @@ import type { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Header from "../components/common/Header";
+import Navbar from "../components/common/Navbar";
 import ImagePreview from "../components/PhotoExplorer/ImagePreview";
 import Uploading from "../components/PhotoExplorer/Uploading";
 import { store } from "../firebase";
@@ -34,7 +34,7 @@ const Home: NextPage<Props> = () => {
         <title>Yelli</title>
       </Head>
       <div className="min-h-screen h-screen flex flex-col justify-start px-4">
-        <Header />
+        <Navbar />
 
         {!isExist ? (
           <NotFound />
