@@ -28,8 +28,8 @@ const ImagePreview: NextPage<Photo> = (props) => {
   return (
     <>
       <a ref={downloadImage} download target="_blank"></a>
-      <div className="flex-1 flex flex-col justify-center items-center">
-        <div className="w-full lg:w-2/3 bg-white shadow-lg">
+      <div className="w-full flex flex-col justify-center items-center">
+        <div className="w-full lg:w-2/3 overflow-hidden rounded-t-md">
           <Image
             placeholder="blur"
             blurDataURL={src!}
@@ -39,7 +39,7 @@ const ImagePreview: NextPage<Photo> = (props) => {
             src={src!}
           />
         </div>
-        <div className="flex justify-between items-center bg-white p-2 w-full lg:w-2/3">
+        <div className="flex justify-between items-center bg-white p-4 w-full lg:w-2/3 overflow-hidden rounded-md shadow-md">
           <div className="flex flex-col">
             <p className="text-md">{name}</p>
             <h2 className="text-md font-semibold">Egypt tour 2022</h2>

@@ -29,13 +29,12 @@ const Home: NextPage<Props> = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen h-screen">
       <Head>
         <title>Yelli</title>
       </Head>
-      <div className="min-h-screen h-screen flex flex-col justify-start px-4">
-        <Navbar />
-
+      <Navbar />
+      <div className="h-full flex flex-col justify-center items-center px-4 container mx-auto">
         {!isExist ? (
           <NotFound />
         ) : photo.src === "uploading" ? (
