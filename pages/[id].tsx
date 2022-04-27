@@ -2,12 +2,13 @@ import type { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Header from "../components/Header";
-import ImagePreview from "../components/ImagePreview";
-import Uploading from "../components/Uploading";
+import Header from "../components/common/Header";
+import ImagePreview from "../components/PhotoExplorer/ImagePreview";
+import Uploading from "../components/PhotoExplorer/Uploading";
 import { store } from "../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
-import NotFound from "../components/NotFound";
+import NotFound from "../components/PhotoExplorer/NotFound";
+import { Photo } from "../@types/Photo";
 
 type Props = {
   src: string | null;
@@ -15,32 +16,34 @@ type Props = {
 
 const Home: NextPage<Props> = () => {
   const router = useRouter();
-  const { photo } = router.query;
-  const [src, setSrc] = useState<string>("");
+  const { id } = router.query;
+  const [photo, setPhoto] = useState<Photo>({ src: null, name: "" });
   const [isExist, setIsExist] = useState<boolean>(true);
   useEffect(() => {
-    const docId = photo as string;
+    const docId = id as string;
     const docRef = doc(store, "upload", docId);
     onSnapshot(docRef, (snapshot) => {
       if (!snapshot.exists()) return setIsExist(false);
-      const { src } = snapshot.data();
-      setSrc(src);
+      setPhoto(snapshot.data() as Photo);
     });
   }, []);
 
   return (
-    <div className="bg-gray-900 min-h-screen">
+    <div>
       <Head>
         <title>Yelli</title>
       </Head>
-      <Header />
-      <div className="mt-5 flex flex-col justify-start space-y-10 items-center">
+      <div className="min-h-screen h-screen flex flex-col justify-start px-4">
+        <Header />
+
         {!isExist ? (
           <NotFound />
-        ) : src === "uploading" ? (
+        ) : photo.src === "uploading" ? (
           <Uploading />
         ) : (
-          src.length > 0 && <ImagePreview src={src} />
+          photo.src !== null && (
+            <ImagePreview src={photo.src} name={photo.name} />
+          )
         )}
       </div>
     </div>
