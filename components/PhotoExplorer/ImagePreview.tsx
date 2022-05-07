@@ -46,7 +46,7 @@ const ImagePreview: NextPage<Photo> = (props) => {
           </div>
           <div className="flex items-center space-x-4">
             <DownloadBtn onClick={handleDownload} />
-            <ShareBtn />
+            <ShareBtn onClick={() => alert("shared")} />
           </div>
         </div>
       </div>

@@ -9,6 +9,8 @@ import { store } from "../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import NotFound from "../components/PhotoExplorer/NotFound";
 import { Photo } from "../@types/Photo";
+import BackToGallery from "../components/PhotoExplorer/Buttons/BackToGallery";
+import ImageCard from "../components/PhotoExplorer/ImageCard";
 
 type Props = {
   src: string | null;
@@ -29,21 +31,43 @@ const Home: NextPage<Props> = () => {
   }, []);
 
   return (
-    <div className="min-h-screen h-screen">
+    <div className="min-h-screen h-screen bg-gray-50">
       <Head>
         <title>Yelli</title>
       </Head>
       <Navbar />
-      <div className="h-full flex flex-col justify-center items-center px-4 container mx-auto">
-        {!isExist ? (
-          <NotFound />
-        ) : photo.src === "uploading" ? (
-          <Uploading />
-        ) : (
-          photo.src !== null && (
-            <ImagePreview src={photo.src} name={photo.name} />
-          )
-        )}
+      <div className="container mx-auto px-4 mt-10">
+        <BackToGallery />
+        <div className="grid grid-cols-2 bg-yellow-500">
+          <ImagePreview
+            src="https://images.unsplash.com/photo-1651156358469-9c33c285685d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+            name="IMG_001.jpeg"
+          />
+          
+          <h2 className="text-center mt-10 font-medium">More Photos</h2>
+          <div className="grid grid-cols-2 justify-items-center place-items-center gap-4">
+            {photo.src !== null && (
+              <>
+                <ImageCard
+                  src="https://images.unsplash.com/photo-1651156358469-9c33c285685d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                  name="IMG_001.jpeg"
+                />
+                <ImageCard
+                  src="https://images.unsplash.com/photo-1651156358469-9c33c285685d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                  name="IMG_001.jpeg"
+                />
+                <ImageCard
+                  src="https://images.unsplash.com/photo-1651156358469-9c33c285685d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                  name="IMG_001.jpeg"
+                />
+                <ImageCard
+                  src="https://images.unsplash.com/photo-1651156358469-9c33c285685d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                  name="IMG_001.jpeg"
+                />
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
