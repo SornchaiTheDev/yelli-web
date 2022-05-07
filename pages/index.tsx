@@ -3,6 +3,10 @@ import Navbar from "@components/common/Navbar";
 import Hero from "@components/Landing/Hero";
 import Scroll from "@components/Landing/Scroll";
 import Features from "@components/Landing/Features";
+import Plans from "@components/Landing/Plans";
+import Gallery from "@components/Landing/Gallery";
+import Contact from "@components/Landing/Contact";
+import Footer from "@components/Landing/Footer";
 
 function Index() {
   return (
@@ -13,6 +17,10 @@ function Index() {
         <Scroll />
       </div>
       <Features />
+      <Plans />
+      <Gallery />
+      <Contact />
+      <Footer />
     </div>
   );
 }

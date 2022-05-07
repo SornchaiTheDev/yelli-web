@@ -20,7 +20,7 @@ const Feature = () => {
 };
 function Features() {
   return (
-    <div className="flex gap-4 mt-14 p-6 w-full">
+    <div className="flex flex-wrap md:flex-nowrap gap-4 mt-14 p-6 w-full">
       <div className="w-full h-96 rounded-lg bg-gray-200"></div>
       <div className="grid grid-cols-2 gap-6">
       <Feature />
