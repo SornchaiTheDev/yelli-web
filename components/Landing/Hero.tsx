@@ -21,10 +21,10 @@ const Hero = ({ plansRef }: HeroProps) => {
             magnam quasi obcaecati
           </p>
           <div className="flex gap-2">
-            <Button background="#FF8C32" onClick={scrollToPlans}>
+            <Button className="bg-yellow-300 shadow-md" onClick={scrollToPlans}>
               View Plans
             </Button>
-            <Button background="#DDDDDD">Gallery</Button>
+            <Button className="bg-gray-200 shadow-md">Gallery</Button>
           </div>
         </div>
       </div>

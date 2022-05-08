@@ -12,7 +12,7 @@ const Card = () => {
           <h2>Photo Shoot</h2>
         </div>
       </div>
-      <button className="px-8 py-4 bg-yellow-500 rounded-full font-bold flex-1 hover:brightness-95 duration-200">
+      <button className="px-8 py-4 bg-yellow-300 rounded-full font-bold flex-1 hover:brightness-95 duration-200">
         Contact
       </button>
     </div>
