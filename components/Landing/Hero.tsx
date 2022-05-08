@@ -1,6 +1,11 @@
 import Button from "@components/Button";
-
-const Hero = () => {
+type HeroProps = {
+  plansRef: React.RefObject<HTMLDivElement>;
+};
+const Hero = ({ plansRef }: HeroProps) => {
+  const scrollToPlans = () => {
+    plansRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-full mt-32 ">
       <div className="relative">
@@ -16,7 +21,9 @@ const Hero = () => {
             magnam quasi obcaecati
           </p>
           <div className="flex gap-2">
-            <Button background="#FF8C32">View Plans</Button>
+            <Button background="#FF8C32" onClick={scrollToPlans}>
+              View Plans
+            </Button>
             <Button background="#DDDDDD">Gallery</Button>
           </div>
         </div>

@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
 
 function Footer() {
   return (
-    <div>Footer</div>
-  )
+    <div className="w-full bg-yellow-200">
+      <div className="flex flex-col items-center justify-center p-10 gap-2">
+        <h2>Made with ❤️ for everyone by GoodShot team</h2>
+        <h2>Copyright &copy; All Rights Reserved By <a href="#" className="text-gray-900 font-bold">GoodShot</a></h2>
+      </div>
+    </div>
+  );
 }
 
-export default Footer
+export default Footer;

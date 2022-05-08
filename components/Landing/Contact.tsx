@@ -5,7 +5,7 @@ function Contact() {
     <div className="flex flex-col items-center my-10 w-full p-4">
       <h2 className="text-2xl font-bold my-10">Contact</h2>
       <div className="grid grid-cols-6 w-full drop-shadow-md rounded-lg overflow-hidden max-w-4xl">
-        <div className="col-span-2 bg-yellow-500 w-full h-full flex flex-col p-4">
+        <div className="col-span-2 bg-yellow-200 w-full h-full flex flex-col p-4">
           <h2>Tel : 090-240-1701</h2>
           <h2>Email : contact@goodshot.com</h2>
         </div>
