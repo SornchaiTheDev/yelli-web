@@ -7,7 +7,11 @@ function Footer() {
         <h2>Made with ❤️ for everyone</h2>
         <h2 className="text-center">
           Copyright &copy; {new Date().getFullYear()} All Rights Reserved By{" "}
-          <a href="#" className="text-gray-900 font-bold">
+          <a
+            href="#"
+            className="text-gray-900 font-bold"
+            style={{ fontFamily: "Pacifico" }}
+          >
             GoodShot
           </a>
         </h2>

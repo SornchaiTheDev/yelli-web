@@ -3,13 +3,13 @@ import { AiOutlineMail } from "react-icons/ai";
 
 function Contact() {
   return (
-    <div className="flex flex-col items-center my-10 w-full p-4">
+    <div className="flex flex-col items-center my-14 w-full p-4 drop-shadow-md">
       <h2 className="text-2xl font-bold my-10">Contact</h2>
-      <div className="grid grid-cols-6 w-full drop-shadow-md rounded-lg overflow-hidden max-w-4xl">
+      <div className="grid grid-cols-6 w-full rounded-lg overflow-hidden max-w-4xl">
         <div className="col-span-6 md:col-span-2 bg-yellow-300 w-full h-full flex flex-col p-6">
           <h2 className="text-2xl font-semibold">Contact Information</h2>
           <p>Fill up the form and we will get back to you in a few hours</p>
-          <div className="mt-4">
+          <div className="mt-4 flex flex-col gap-2">
             <div className="inline-flex items-center gap-4">
               <BsTelephone />
               <h2>090-240-1701</h2>
@@ -38,21 +38,22 @@ function Contact() {
             />
             <label>Plan You Need</label>
             <div className="flex gap-2">
-              <label className="inline-flex items-center">
-                <input
-                  type="radio"
-                  name="plan"
-                  value="Bronze"
-                  className="text-yellow-500 focus:outline-none focus:ring-0 focus:ring-transparent focus:border-transparent"
-                />
-                <span className="ml-2">Bronze</span>
-              </label>
+              {["Bronze", "Silver", "Gold", "Platinum"].map((type) => (
+                <label className="inline-flex items-center" key={type}>
+                  <input
+                    type="radio"
+                    name="plan"
+                    value={type}
+                    className="text-yellow-500 focus:outline-none focus:ring-0 focus:ring-transparent focus:border-transparent"
+                  />
+                  <span className="ml-2">{type}</span>
+                </label>
+              ))}
             </div>
-            <div className="flex justify-end">
-              <button className="bg-yellow-400 px-12 py-2 rounded-lg w-fit">
-                Send
-              </button>
-            </div>
+
+            <button className="bg-yellow-300 px-12 py-3 md:py-2 rounded-lg md:w-fit">
+              Send
+            </button>
           </form>
         </div>
       </div>

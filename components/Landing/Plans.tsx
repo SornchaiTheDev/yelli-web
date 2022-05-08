@@ -23,7 +23,7 @@ const Plans = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
       ref={ref}
-      className="mt-10 flex flex-col justify-center items-center h-full"
+      className="my-14 flex flex-col justify-center items-center h-full"
     >
       <h2 className="text-2xl font-semibold">Plans</h2>
       <div className="flex flex-wrap md:flex-nowrap w-full gap-4 h-full mt-10 px-2">
