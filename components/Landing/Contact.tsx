@@ -12,7 +12,7 @@ function Contact() {
           <div className="mt-4 flex flex-col gap-2">
             <div className="inline-flex items-center gap-4">
               <BsTelephone />
-              <h2>090-240-1701</h2>
+              <h2>(+66) 090-240-1701</h2>
             </div>
             <div className="inline-flex items-center gap-4">
               <AiOutlineMail />
