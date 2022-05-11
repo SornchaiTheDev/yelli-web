@@ -14,7 +14,7 @@ const Album = () => {
           ))}
 
         <div className="rounded-lg overflow-hidden bg-gray-50 relative  aspect-w-3 aspect-h-2 cursor-pointer">
-          <div className="bg-[rgba(0,0,0,.40)] top-0 left-0 w-full h-full absolute flex justify-center items-center z-50">
+          <div className="bg-[rgba(0,0,0,.40)] top-0 left-0 w-full h-full absolute flex justify-center items-center z-10">
             <h2 className="text-white font-semibold text-xl">
               +24
             </h2>

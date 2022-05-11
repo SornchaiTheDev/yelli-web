@@ -7,6 +7,8 @@ function Gallery() {
       <h2 className="my-10 font-bold text-2xl text-center">Recent Event</h2>
       <div className="grid grid-cols-3 gap-4 my-24">
         <Album />
+        <Album />
+        <Album />
       </div>
     </div>
   );
