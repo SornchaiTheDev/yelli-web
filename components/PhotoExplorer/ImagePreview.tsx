@@ -29,18 +29,15 @@ const ImagePreview: NextPage<Photo> = (props) => {
     <div className="w-full flex flex-col justify-center items-center">
       <a ref={downloadImage} download target="_blank"></a>
       <div className="w-full overflow-hidden rounded-t-md">
-        <img
+        <Image
+          placeholder="blur"
+          blurDataURL={src!}
+          layout="responsive"
           className="h-full object-cover object-center pointer-events-none"
-          src="https://images.unsplash.com/photo-1651821486767-316ebf5a9b1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80"
+          width={900}
+          height={600}
+          src={src!}
         />
-        {/* <Image
-            placeholder="blur"
-            blurDataURL={src!}
-            layout="responsive"
-            width={900}
-            height={600}
-            src={src!}
-          /> */}
       </div>
       <div className="flex justify-between items-center bg-white p-4 w-full overflow-hidden rounded-md shadow-md">
         <div className="flex flex-col">
