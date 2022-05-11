@@ -1,7 +1,8 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+
 const Hamburger = ({
   isOpen,
   onClick,
@@ -26,9 +27,10 @@ const NavPaths = [
 ];
 
 function Navbar({ active }: NavbarProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
-    <nav className={`fixed md:static left-0 top-0 z-20 p-2 w-full`}>
+    <nav className={`left-0 top-0 z-20 p-2 w-full bg-white fixed`}>
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 w-full">
         <div className="px-2 py-4 flex justify-between items-center relative w-full">
           <Link href="/">

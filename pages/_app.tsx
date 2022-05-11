@@ -19,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.events.off("routeChangeError", handleRouteStop);
     };
   }, [router]);
+
   return (
     <>
       <LoadingBar isStart={isStart} />

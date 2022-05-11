@@ -1,21 +1,27 @@
 import Button from "@components/Button";
 import { useRouter } from "next/router";
+import useWindow from "../../hooks/useWindow";
 type HeroProps = {
   plansRef: React.RefObject<HTMLDivElement>;
 };
 const Hero = ({ plansRef }: HeroProps) => {
+  const { width } = useWindow();
   const scrollToPlans = () => {
-    plansRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const isMobile = width < 728;
+    plansRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: isMobile ? "nearest" : "center",
+    });
   };
   const router = useRouter();
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 h-full md:mt-32 mt-48">
+    <div className="grid grid-cols-1 md:grid-cols-2 h-full mt-48">
       <div className="relative">
         <img
           src="./decoration/blur.svg"
-          className="absolute -top-24 -left-10 -z-10"
+          className="absolute top-28 -left-10 -z-10"
         />
-        <div className="top-1/4 flex flex-col gap-4 px-10">
+        <div className="h-full flex flex-col justify-center gap-4 px-10">
           <h2 className="text-6xl font-bold">Save your memories into photos</h2>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
