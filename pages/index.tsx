@@ -8,6 +8,7 @@ import Gallery from "@components/Landing/Gallery";
 import Contact from "@components/Landing/Contact";
 import Footer from "@components/Landing/Footer";
 import { useRef } from "react";
+
 function Index() {
   const plansRef = useRef<HTMLDivElement>(null);
 
@@ -15,7 +16,7 @@ function Index() {
     <>
       <div className="container mx-auto">
         <div className="flex flex-col max-h-screen h-screen">
-          <Navbar />
+          <Navbar active="Home" />
           <Hero plansRef={plansRef} />
           <Scroll />
         </div>

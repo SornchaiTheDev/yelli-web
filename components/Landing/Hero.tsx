@@ -1,11 +1,13 @@
 import Button from "@components/Button";
+import { useRouter } from "next/router";
 type HeroProps = {
   plansRef: React.RefObject<HTMLDivElement>;
 };
 const Hero = ({ plansRef }: HeroProps) => {
   const scrollToPlans = () => {
-    plansRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    plansRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+  const router = useRouter();
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-full md:mt-32 mt-48">
       <div className="relative">
@@ -24,7 +26,12 @@ const Hero = ({ plansRef }: HeroProps) => {
             <Button className="bg-yellow-300 shadow-md" onClick={scrollToPlans}>
               View Plans
             </Button>
-            <Button className="bg-gray-200 shadow-md">Gallery</Button>
+            <Button
+              className="bg-gray-200 shadow-md"
+              onClick={() => router.push("/gallery")}
+            >
+              Gallery
+            </Button>
           </div>
         </div>
       </div>

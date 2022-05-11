@@ -3,7 +3,7 @@ import { AiOutlineMail } from "react-icons/ai";
 
 function Contact() {
   return (
-    <div className="flex flex-col items-center my-14 w-full p-4">
+    <div className="flex flex-col items-center my-2 w-full p-4">
       <h2 className="text-2xl font-bold my-10">Contact</h2>
       <div className="grid grid-cols-6 w-full rounded-lg overflow-hidden max-w-4xl drop-shadow-md">
         <div className="col-span-6 md:col-span-2 bg-yellow-300 w-full h-full flex flex-col p-6">
