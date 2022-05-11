@@ -7,7 +7,7 @@ const Hero = ({ plansRef }: HeroProps) => {
     plansRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 h-full mt-32 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 h-full md:mt-32 mt-48">
       <div className="relative">
         <img
           src="./decoration/blur.svg"
