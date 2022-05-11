@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.4.4",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tanem/react-nprogress": "^5.0.0",
     "autoprefixer": "^10.4.4",
     "axios": "^0.26.1",
