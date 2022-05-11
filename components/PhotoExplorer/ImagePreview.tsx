@@ -33,18 +33,18 @@ const ImagePreview: NextPage<Photo> = (props) => {
           placeholder="blur"
           blurDataURL={src!}
           layout="responsive"
-          className="h-full object-cover object-center pointer-events-none"
+          className="h-full object-cover object-center pointer-events-none rounded-t-lg"
           width={900}
           height={600}
           src={src!}
         />
       </div>
-      <div className="flex justify-between items-center bg-white p-4 w-full overflow-hidden rounded-md shadow-md">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-4 md:items-center bg-white p-4 w-full overflow-hidden rounded-md shadow-md">
         <div className="flex flex-col">
           <p className="text-md">{name}</p>
           <h2 className="text-md font-semibold">Egypt tour 2022</h2>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 self-end md:self-center">
           <DownloadBtn onClick={handleDownload} />
           <ShareBtn onClick={() => alert("shared")} />
         </div>

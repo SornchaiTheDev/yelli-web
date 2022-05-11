@@ -29,15 +29,7 @@ function Event() {
               </span>
             </div>
           </div>
-          <div className="inline-flex items-center gap-2 px-6 mb-10">
-            <AiOutlineHome />
-            <p>
-              <Link href="/gallery">
-                <span className="font-semibold cursor-pointer">Gallery</span>
-              </Link>{" "}
-              {">"} Home Party
-            </p>
-          </div>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 p-4">
             {Array(20)
               .fill("")
