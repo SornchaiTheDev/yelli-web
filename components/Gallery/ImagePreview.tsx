@@ -6,6 +6,7 @@ import { ref, getBlob } from "firebase/storage";
 import { storage } from "../../firebase";
 import ShareBtn from "./Buttons/ShareBtn";
 import { Photo } from "../../@types/Photo";
+
 type ImagePreviewProps = { Horizontal?: boolean; BigPreview?: boolean };
 const ImagePreview: NextPage<Photo & ImagePreviewProps> = (props) => {
   const { src, Horizontal, BigPreview } = props;

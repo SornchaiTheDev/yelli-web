@@ -1,18 +1,21 @@
-import React from "react";
+import { useState } from "react";
 import Navbar from "@components/common/Navbar";
 import {
   AiOutlineHome,
   AiOutlineCalendar,
   AiOutlineFileImage,
 } from "react-icons/ai";
-import Link from "next/link";
+
 import ImagePreview from "@components/Gallery/ImagePreview";
 import BackToGallery from "@components/Gallery/Buttons/BackToGallery";
 import BigImage from "@components/Gallery/BigImage";
+import { Photo } from "../../@types/Photo";
 function Event() {
+  const [previewImg, setPreviewImg] = useState<Photo>({ src: null });
   return (
     <>
-      <BigImage />
+      {previewImg.src !== null && <BigImage />}
+
       <div>
         <Navbar active="Gallery" />
         <div className="mt-24 w-full flex flex-col items-center">
