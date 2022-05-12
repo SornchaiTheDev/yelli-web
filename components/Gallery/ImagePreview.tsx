@@ -6,9 +6,9 @@ import { ref, getBlob } from "firebase/storage";
 import { storage } from "../../firebase";
 import ShareBtn from "./Buttons/ShareBtn";
 import { Photo } from "../../@types/Photo";
-
-const ImagePreview: NextPage<Photo> = (props) => {
-  const { src, name } = props;
+type ImagePreviewProps = { Horizontal?: boolean; BigPreview?: boolean };
+const ImagePreview: NextPage<Photo & ImagePreviewProps> = (props) => {
+  const { src, Horizontal, BigPreview } = props;
   const downloadImage = useRef<HTMLAnchorElement | null>(null);
   const handleDownload = async () => {
     try {
@@ -33,22 +33,28 @@ const ImagePreview: NextPage<Photo> = (props) => {
           placeholder="blur"
           blurDataURL={src!}
           layout="responsive"
-          className="h-full object-cover object-center pointer-events-none rounded-t-lg"
+          className={`h-full object-cover object-center pointer-events-none ${
+            BigPreview ? "rounded-t-lg" : "rounded-lg"
+          }`}
           width={900}
           height={600}
           src={src!}
         />
       </div>
-      <div className="flex flex-col md:flex-row justify-between items-start gap-4 md:items-center bg-white p-4 w-full overflow-hidden rounded-md shadow-md">
-        <div className="flex flex-col">
-          <p className="text-md">{name}</p>
-          <h2 className="text-md font-semibold">Egypt tour 2022</h2>
+      {BigPreview && (
+        <div
+          className={`flex ${
+            Horizontal ? "flex-row" : "flex-column"
+          }  justify-end items-start gap-4 md:items-center bg-white p-4 w-full overflow-hidden rounded-b-md shadow-md`}
+        >
+          {/* <h2 className="text-md">{name}</h2> */}
+
+          <div className="flex items-center space-x-4">
+            <DownloadBtn onClick={handleDownload} />
+            <ShareBtn onClick={() => alert("shared")} />
+          </div>
         </div>
-        <div className="flex items-center space-x-4 self-end md:self-center">
-          <DownloadBtn onClick={handleDownload} />
-          <ShareBtn onClick={() => alert("shared")} />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

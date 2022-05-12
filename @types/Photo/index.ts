@@ -1,1 +1,1 @@
-export type Photo = { src: string | null; name: string };
+export type Photo = { src: string | null };
