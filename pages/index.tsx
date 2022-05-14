@@ -22,7 +22,7 @@ function Index() {
         </div>
         <Features />
         <Plans ref={plansRef} />
-        <Gallery />
+        {/* <Gallery /> */}
         <Contact />
       </div>
       <Footer />
