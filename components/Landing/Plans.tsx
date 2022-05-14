@@ -1,7 +1,19 @@
 import { BsCheckLg } from "react-icons/bs";
 import { forwardRef } from "react";
+import useWindow from "@hooks/useWindow";
 
-const Card = () => {
+type CardProps = {
+  contactRef: React.RefObject<HTMLDivElement>;
+};
+const Card = ({ contactRef }: CardProps) => {
+  const { width } = useWindow();
+  const handleOnPricingClick = () => {
+    const isMobile = width < 728;
+    contactRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: isMobile ? "nearest" : "center",
+    });
+  };
   return (
     <div className="bg-white border-2 w-full rounded-lg p-4 shadow-lg h-[60vh] flex flex-col gap-4">
       <h2 className="text-2xl font-semibold">Bronze</h2>
@@ -12,14 +24,19 @@ const Card = () => {
           <h2>Photo Shoot</h2>
         </div>
       </div>
-      <button className="px-8 py-4 bg-yellow-300 rounded-full font-bold flex-1 hover:brightness-95 duration-200">
+      <button
+        onClick={handleOnPricingClick}
+        className="px-8 py-4 bg-yellow-300 rounded-full font-bold flex-1 hover:brightness-95 duration-200"
+      >
         Contact
       </button>
     </div>
   );
 };
-
-const Plans = forwardRef<HTMLDivElement>((props, ref) => {
+type PlansProps = {
+  contactRef: React.RefObject<HTMLDivElement>;
+};
+const Plans = forwardRef<HTMLDivElement, PlansProps>(({ contactRef }, ref) => {
   return (
     <div
       ref={ref}
@@ -28,10 +45,9 @@ const Plans = forwardRef<HTMLDivElement>((props, ref) => {
     >
       <h2 className="text-2xl font-semibold">Plans</h2>
       <div className="flex flex-wrap md:flex-nowrap w-full gap-4 h-full mt-10 px-2">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {[...Array(4)].map((_, i) => (
+          <Card contactRef={contactRef} />
+        ))}
       </div>
     </div>
   );

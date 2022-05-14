@@ -18,15 +18,15 @@ const Feature = () => {
     </div>
   );
 };
+
 function Features() {
   return (
     <div className="flex flex-wrap md:flex-nowrap gap-4 my-14 p-6 w-full">
       <div className="w-full h-96 rounded-lg bg-gray-200"></div>
       <div className="grid grid-cols-2 gap-6">
-      <Feature />
-      <Feature />
-      <Feature />
-      <Feature />
+        {[...Array(3)].map((_, i) => (
+          <Feature />
+        ))}
       </div>
     </div>
   );

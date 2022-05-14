@@ -11,6 +11,7 @@ import { useRef } from "react";
 
 function Index() {
   const plansRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -21,9 +22,9 @@ function Index() {
           <Scroll />
         </div>
         <Features />
-        <Plans ref={plansRef} />
+        <Plans ref={plansRef} contactRef={contactRef} />
         {/* <Gallery /> */}
-        <Contact />
+        <Contact ref={contactRef} />
       </div>
       <Footer />
     </>
