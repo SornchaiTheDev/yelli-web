@@ -23,7 +23,7 @@ const NavPaths = [
   { path: "/", name: "Home" },
   { path: "/#plans", name: "Plans" },
   { path: "/gallery", name: "Gallery" },
-  { path: "/contact", name: "Contact" },
+  { path: "/#contact", name: "Contact" },
 ];
 
 function Navbar({ active }: NavbarProps) {
@@ -43,6 +43,24 @@ function Navbar({ active }: NavbarProps) {
         {isOpen && (
           <ul className="flex md:hidden flex-col items-stretch px-2 space-y-3 cursor-pointer w-full z-20">
             {NavPaths.map(({ path, name }) => (
+              <Link href={path}>
+                <li
+                  className={
+                    active === name
+                      ? "font-bold border-b-2 border-yellow-500"
+                      : ""
+                  }
+                >
+                  {name}
+                </li>
+              </Link>
+            ))}
+          </ul>
+        )}
+
+        <ul className="hidden md:flex items-stretch px-0 space-x-3 cursor-pointer w-fit z-20">
+          {NavPaths.map(({ path, name }) => (
+            <Link href={path}>
               <li
                 className={
                   active === name
@@ -52,19 +70,7 @@ function Navbar({ active }: NavbarProps) {
               >
                 {name}
               </li>
-            ))}
-          </ul>
-        )}
-
-        <ul className="hidden md:flex items-stretch px-0 space-x-3 cursor-pointer w-fit z-20">
-          {NavPaths.map(({ path, name }) => (
-            <li
-              className={
-                active === name ? "font-bold border-b-2 border-yellow-500" : ""
-              }
-            >
-              {name}
-            </li>
+            </Link>
           ))}
         </ul>
       </div>

@@ -23,6 +23,7 @@ const Plans = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
       ref={ref}
+      id="plans"
       className="my-14 flex flex-col justify-center items-center h-full"
     >
       <h2 className="text-2xl font-semibold">Plans</h2>
