@@ -36,7 +36,11 @@ const ImagePreview: NextPage<Photo & ImagePreviewProps> = (props) => {
       onClick={onClick}
     >
       <a ref={downloadImage} download target="_blank"></a>
-      <div className="w-full overflow-hidden rounded-t-md">
+      <div
+        className={`${
+          BigPreview ? "w-3/4" : "w-full"
+        } overflow-hidden rounded-t-md`}
+      >
         <Image
           placeholder="blur"
           blurDataURL={src!}
@@ -53,7 +57,7 @@ const ImagePreview: NextPage<Photo & ImagePreviewProps> = (props) => {
         <div
           className={`flex ${
             Horizontal ? "flex-row" : "flex-column"
-          }  justify-end items-start gap-4 md:items-center bg-white p-4 w-full overflow-hidden rounded-b-md shadow-md`}
+          }  justify-end items-start gap-4 md:items-center bg-white p-4 w-3/4 overflow-hidden rounded-b-md shadow-md`}
         >
           {/* <h2 className="text-md">{name}</h2> */}
 

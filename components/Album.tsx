@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AlbumProps } from "@decor/Album";
-const Album = ({ imgset, amount }: AlbumProps) => {
+const Album = ({ imgset, name, amount }: AlbumProps) => {
   return (
     <div className="flex flex-col items-center gap-4 col-span-1">
       <div className="grid grid-cols-2 gap-2 justify-items-stretch place-items-stretch w-full">
@@ -27,7 +27,7 @@ const Album = ({ imgset, amount }: AlbumProps) => {
           />
         </div>
       </div>
-      <h2>Home Party • 28 April</h2>
+      <h2 className="text-center">{name}</h2>
     </div>
   );
 };

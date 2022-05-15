@@ -10,6 +10,7 @@ function Index() {
           <h2 className="text-center text-3xl font-semibold my-14">Gallery</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 p-4">
             <Album
+              name="Roselyn and Antonio's Wedding"
               amount={5}
               imgset={[
                 "https://photos.smugmug.com/2022/Roselyn-and-Antonios-Wedding/i-7zRr6M9/0/05a091da/X2/mirmir126_017275-X2.jpg",
