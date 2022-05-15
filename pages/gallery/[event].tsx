@@ -11,10 +11,13 @@ import { format } from "date-fns";
 
 function Event({ photos, name, date, amount }: EventProps) {
   const [previewImg, setPreviewImg] = useState<Photo>({ src: null });
+  const clearPreviewImg = () => setPreviewImg({ src: null });
 
   return (
     <>
-      {previewImg.src !== null && <BigImage src={previewImg.src} />}
+      {previewImg.src !== null && (
+        <BigImage src={previewImg.src} onClose={clearPreviewImg} />
+      )}
 
       <div>
         <Navbar active="Gallery" />
@@ -26,7 +29,7 @@ function Event({ photos, name, date, amount }: EventProps) {
               <div className="inline-flex gap-4">
                 <span className="inline-flex items-center gap-1">
                   <AiOutlineCalendar />
-                  <p>{format( new Date(date) , "dd MMMM yyyy")}</p>
+                  <p>{format(new Date(date), "dd MMMM yyyy")}</p>
                 </span>
                 <p>•</p>
                 <span className="inline-flex items-center gap-1">
