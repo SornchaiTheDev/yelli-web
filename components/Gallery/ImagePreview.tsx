@@ -5,11 +5,15 @@ import DownloadBtn from "./Buttons/DownloadBtn";
 import { ref, getBlob } from "firebase/storage";
 import { storage } from "../../firebase";
 import ShareBtn from "./Buttons/ShareBtn";
-import { Photo } from "../../@types/Photo";
+import { Photo } from "@decor/Photo";
 
-type ImagePreviewProps = { Horizontal?: boolean; BigPreview?: boolean };
+type ImagePreviewProps = {
+  Horizontal?: boolean;
+  BigPreview?: boolean;
+  onClick?: () => void;
+};
 const ImagePreview: NextPage<Photo & ImagePreviewProps> = (props) => {
-  const { src, Horizontal, BigPreview } = props;
+  const { src, Horizontal, BigPreview, onClick } = props;
   const downloadImage = useRef<HTMLAnchorElement | null>(null);
   const handleDownload = async () => {
     try {
@@ -27,7 +31,10 @@ const ImagePreview: NextPage<Photo & ImagePreviewProps> = (props) => {
     }
   };
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <div
+      className="w-full flex flex-col justify-center items-center cursor-pointer"
+      onClick={onClick}
+    >
       <a ref={downloadImage} download target="_blank"></a>
       <div className="w-full overflow-hidden rounded-t-md">
         <Image
