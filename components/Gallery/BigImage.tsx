@@ -1,5 +1,4 @@
 import React from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import ImagePreview from "@components/Gallery/ImagePreview";
 
