@@ -1,7 +1,11 @@
 import React from "react";
 import Navbar from "@components/common/Navbar";
 import Album from "@components/Album";
-function Index() {
+import { EventProps } from "@decor/Event";
+
+function Index({ events }: EventProps) {
+  const _events = JSON.parse(events) as Event[];
+  console.log(_events);
   return (
     <div>
       <Navbar active="Gallery" />
@@ -9,20 +13,9 @@ function Index() {
         <div className="container mx-auto">
           <h2 className="text-center text-3xl font-semibold my-14">Gallery</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 p-4">
-            <Album
-              name="Roselyn and Antonio's Wedding"
-              amount={5}
-              imgset={[
-                "https://photos.smugmug.com/2022/Roselyn-and-Antonios-Wedding/i-7zRr6M9/0/05a091da/X2/mirmir126_017275-X2.jpg",
-                "https://photos.smugmug.com/2022/Roselyn-and-Antonios-Wedding/i-MrzQFHv/0/3271d378/X2/mirmir126_017274-X2.jpg",
-                "https://photos.smugmug.com/2022/Roselyn-and-Antonios-Wedding/i-dwXdhNB/0/69ba6063/X2/mirmir126_017276-X2.jpg",
-                "https://photos.smugmug.com/2022/Roselyn-and-Antonios-Wedding/i-XF75FGt/0/2fa26fb4/X2/mirmir126_017277-X2.jpg",
-              ]}
-            />
-            {/* <Album />
-            <Album />
-            <Album />
-            <Album /> */}
+            {_events.map(({ name, amount, imgset }) => (
+              <Album name={name} amount={amount} imgset={imgset} />
+            ))}
           </div>
         </div>
       </div>
@@ -31,3 +24,37 @@ function Index() {
 }
 
 export default Index;
+
+import { collection, query, limit, orderBy, getDocs } from "firebase/firestore";
+import { store } from "../../firebase";
+import { Event } from "@decor/Event";
+import { Photo } from "@decor/Photo";
+
+export const getServerSideProps = async () => {
+  const eventRef = collection(store, "events");
+  const queryEvent = query(eventRef, limit(5), orderBy("date", "desc"));
+  const events = await getDocs(queryEvent);
+  const _events: Event[] = [];
+  events.forEach((event) => {
+    _events.push({
+      ...(event.data() as Event),
+      id: event.id,
+    });
+  });
+
+  let index = 0;
+  for await (let event of _events) {
+    const photoRef = collection(store, `events/${event.id}`, "photos");
+    const queryPhotos = query(photoRef, limit(4));
+    const getPhotos = await getDocs(queryPhotos);
+    const photos: Photo[] = [];
+    getPhotos.forEach((photo) => photos.push(photo.data() as Photo));
+    _events[index] = { ...event, imgset: photos };
+  }
+
+  return {
+    props: {
+      events: JSON.stringify(_events),
+    },
+  };
+};

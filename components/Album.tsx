@@ -6,12 +6,12 @@ const Album = ({ imgset, name, amount }: AlbumProps) => {
       <div className="grid grid-cols-2 gap-2 justify-items-stretch place-items-stretch w-full">
         {imgset
           .filter((_, index) => index < imgset.length - 1)
-          .map((src, index) => (
+          .map(({ src }, index) => (
             <Link href="/gallery/test">
               <div className="rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer">
                 <img
                   className="h-full object-cover object-center pointer-events-none"
-                  src={src}
+                  src={src!}
                 />
               </div>
             </Link>
@@ -25,7 +25,7 @@ const Album = ({ imgset, name, amount }: AlbumProps) => {
             </div>
             <img
               className="h-full object-cover object-center pointer-events-none"
-              src={imgset[imgset.length - 1]}
+              src={imgset[imgset.length - 1].src!}
             />
           </div>
         </Link>

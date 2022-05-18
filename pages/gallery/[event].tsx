@@ -6,10 +6,10 @@ import BackToGallery from "@components/Gallery/Buttons/BackToGallery";
 import BigImage from "@components/Gallery/BigImage";
 
 import { Photo } from "@decor/Photo";
-import { EventProps } from "@decor/Event";
+import { InEventProps } from "@decor/Event";
 import { format } from "date-fns";
 
-function Event({ photos, name, date, amount }: EventProps) {
+function Event({ photos, name, date, amount }: InEventProps) {
   const [previewImg, setPreviewImg] = useState<Photo>({ src: null });
   const clearPreviewImg = () => setPreviewImg({ src: null });
 

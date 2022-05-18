@@ -1,1 +1,3 @@
-export type AlbumProps = { imgset: string[]; name: string; amount: number };
+import { Photo } from "@decor/Photo";
+
+export type AlbumProps = { imgset: Photo[]; name: string; amount: number };
