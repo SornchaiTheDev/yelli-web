@@ -5,7 +5,7 @@ import { EventProps } from "@decor/Event";
 
 function Index({ events }: EventProps) {
   const _events = JSON.parse(events) as Event[];
-  console.log(_events);
+
   return (
     <div>
       <Navbar active="Gallery" />
@@ -33,28 +33,38 @@ import { Photo } from "@decor/Photo";
 export const getServerSideProps = async () => {
   const eventRef = collection(store, "events");
   const queryEvent = query(eventRef, limit(5), orderBy("date", "desc"));
-  const events = await getDocs(queryEvent);
-  const _events: Event[] = [];
-  events.forEach((event) => {
-    _events.push({
+  const getEvents = await getDocs(queryEvent);
+  const events: Event[] = [];
+
+  getEvents.forEach((event) => {
+    events.push({
       ...(event.data() as Event),
       id: event.id,
     });
   });
 
   let index = 0;
-  for await (let event of _events) {
+  for await (let event of events) {
     const photoRef = collection(store, `events/${event.id}`, "photos");
     const queryPhotos = query(photoRef, limit(4));
     const getPhotos = await getDocs(queryPhotos);
-    const photos: Photo[] = [];
+    let photos: Photo[] = [];
     getPhotos.forEach((photo) => photos.push(photo.data() as Photo));
-    _events[index] = { ...event, imgset: photos };
+    console.log(photos.length);
+    if (photos.length < 4) {
+      photos = photos.concat(
+        Array(4 - photos.length).fill({ src: null })
+      ) as Photo[];
+    }
+
+    events[index] = { ...event, imgset: photos };
+    index += 1;
   }
+  console.log(events[0]);
 
   return {
     props: {
-      events: JSON.stringify(_events),
+      events: JSON.stringify(events),
     },
   };
 };
