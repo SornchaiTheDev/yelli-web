@@ -3,6 +3,7 @@ import { AiOutlineMail, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FormEvent, forwardRef, useState } from "react";
 import axios from "axios";
 import emailjs from "emailjs-com";
+import PhoneInput from "@components/PhoneInput";
 
 declare global {
   interface Window {
@@ -25,13 +26,6 @@ const contact = [
     key: "email",
     placeholder: "Dylan@gmail.com",
     type: "email",
-    required: true,
-  },
-  {
-    name: "Phone",
-    key: "phone",
-    placeholder: "+1 (555) 555-5555",
-    type: "text",
     required: true,
   },
 ];
@@ -75,6 +69,7 @@ const Contact = forwardRef<HTMLDivElement>((props, ref) => {
   const handleMessageChange = (e: FormEvent<HTMLTextAreaElement>) => {
     setForm({ ...form, message: e.currentTarget.value });
   };
+
   return (
     <div
       ref={ref}
@@ -114,7 +109,18 @@ const Contact = forwardRef<HTMLDivElement>((props, ref) => {
               </div>
             ))}
 
-            <label>Plan You Need</label>
+            <label>
+              Phone <span className="text-red-500">*</span>
+            </label>
+            <PhoneInput
+              onValueChange={(dial_code: string) =>
+                setForm({ ...form, phone: dial_code })
+              }
+            />
+
+            <label>
+              Plan You Need <span className="text-red-500">*</span>
+            </label>
             <div className="flex gap-2">
               {["Bronze", "Silver", "Gold", "Platinum"].map((type) => (
                 <label className="inline-flex items-center" key={type}>
@@ -146,6 +152,11 @@ const Contact = forwardRef<HTMLDivElement>((props, ref) => {
                 <p>Send</p>
               )}
             </button>
+            {formStatus === "INVALID" && (
+              <ul className="text-red-500">
+                <li>*The name field is required</li>
+              </ul>
+            )}
           </form>
         </div>
       </div>

@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import emailjs from "emailjs-com";
 import axios from "axios";
 const SECRET_KEY = process.env.RECAPTCHA_PRIVATE_KEY;
 export default async function handler(
