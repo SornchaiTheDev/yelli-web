@@ -1,10 +1,15 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import { useEffect } from "react";
+import emailjs from "emailjs-com";
 
 export default function Document() {
+  useEffect(() => {
+    const emailJsPrivateKey = process.env.EMAILJS_PRIVATE_KEY;
+    emailjs.init(emailJsPrivateKey!);
+  }, []);
   return (
     <Html>
       <Head>
-        <link rel="stylesheet" href="..." />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

@@ -9,7 +9,7 @@ const Album = ({ imgset, name, amount }: AlbumProps) => {
             imgset.length > 1 ? index < imgset.length - 1 : true
           )
           .map(({ src }, index) => (
-            <Link href="/gallery/test">
+            <Link href="/gallery/test" key={src}>
               <div className="rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer h-fit">
                 {src !== null && (
                   <img

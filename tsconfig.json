@@ -19,7 +19,8 @@
       "@components/*": ["./components/*"],
       "@assets/*": ["./public/assets/*"],
       "@hooks/*": ["./hooks/*"],
-      "@decor/*": ["./@types/*"]
+      "@decor/*": ["./@types/*"],
+      "@lottie/*": ["./assets/lottie/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

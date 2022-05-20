@@ -1,8 +1,80 @@
 import { BsTelephone, BsMailbox } from "react-icons/bs";
-import { AiOutlineMail } from "react-icons/ai";
-import { forwardRef } from "react";
+import { AiOutlineMail, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FormEvent, forwardRef, useState } from "react";
+import axios from "axios";
+import emailjs from "emailjs-com";
+
+declare global {
+  interface Window {
+    grecaptcha: any;
+  }
+}
+
+const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+const contact = [
+  {
+    name: "Name",
+    key: "name",
+    placeholder: "Dylan Serif",
+    type: "text",
+    required: true,
+  },
+  {
+    name: "Email",
+    key: "email",
+    placeholder: "Dylan@gmail.com",
+    type: "email",
+    required: true,
+  },
+  {
+    name: "Phone",
+    key: "phone",
+    placeholder: "+1 (555) 555-5555",
+    type: "text",
+    required: true,
+  },
+];
 
 const Contact = forwardRef<HTMLDivElement>((props, ref) => {
+  const [formStatus, setFormStatus] = useState<string>("INITIAL");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    plan: "",
+    message: "",
+  });
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    window.grecaptcha.ready(async () => {
+      setFormStatus("SUBMITTING");
+      const token = await window.grecaptcha.execute(SITE_KEY, {
+        action: "contact",
+      });
+
+      const res = await axios.post("/api/contact", { ...form, token });
+      const { success } = res.data;
+
+      if (success) {
+        await emailjs.send(
+          "service_vcp9z2j",
+          "template_8505ivy",
+          form,
+          "r5JxDrTgFL6MEWyG_"
+        );
+      }
+      setFormStatus("SUCCESS");
+    });
+  };
+
+  const handlePlanChange = (e: FormEvent<HTMLInputElement>) => {
+    setForm({ ...form, plan: e.currentTarget.value });
+  };
+  const handleMessageChange = (e: FormEvent<HTMLTextAreaElement>) => {
+    setForm({ ...form, message: e.currentTarget.value });
+  };
   return (
     <div
       ref={ref}
@@ -26,21 +98,22 @@ const Contact = forwardRef<HTMLDivElement>((props, ref) => {
           </div>
         </div>
         <div className="col-span-6 md:col-span-4 bg-white w-full h-full flex flex-col p-4">
-          <form className="flex flex-col gap-4">
-            <label>Name</label>
-            <input type="text" placeholder="John Doe" className="rounded-lg" />
-            <label>Email</label>
-            <input
-              type="email"
-              placeholder="johndoe@gmail.com"
-              className="rounded-lg"
-            />
-            <label>Phone</label>
-            <input
-              type="text"
-              placeholder="+66966353408"
-              className="rounded-lg"
-            />
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            {contact.map(({ name, placeholder, type, required, key }) => (
+              <div key={name} className="flex flex-col gap-4">
+                <label>
+                  {name} <span className="text-red-500">*</span>
+                </label>
+                <input
+                  required={required}
+                  onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                  type={type}
+                  placeholder={placeholder}
+                  className="rounded-lg"
+                />
+              </div>
+            ))}
+
             <label>Plan You Need</label>
             <div className="flex gap-2">
               {["Bronze", "Silver", "Gold", "Platinum"].map((type) => (
@@ -48,6 +121,7 @@ const Contact = forwardRef<HTMLDivElement>((props, ref) => {
                   <input
                     type="radio"
                     name="plan"
+                    onChange={handlePlanChange}
                     value={type}
                     className="text-yellow-500 focus:outline-none focus:ring-0 focus:ring-transparent focus:border-transparent"
                   />
@@ -55,9 +129,22 @@ const Contact = forwardRef<HTMLDivElement>((props, ref) => {
                 </label>
               ))}
             </div>
+            <label>Message (optional)</label>
+            <textarea
+              className="rounded-lg"
+              placeholder="Message to us"
+              onChange={handleMessageChange}
+            />
 
-            <button className="bg-yellow-300 px-12 py-3 md:py-2 rounded-lg md:w-fit">
-              Send
+            <button
+              className="bg-yellow-300 w-32 h-10 rounded-lg flex justify-center items-center"
+              disabled={formStatus === "PENDING"}
+            >
+              {formStatus === "SUBMITTING" ? (
+                <AiOutlineLoading3Quarters className="animate-spin fill-white text-2xl" />
+              ) : (
+                <p>Send</p>
+              )}
             </button>
           </form>
         </div>

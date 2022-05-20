@@ -1,20 +1,21 @@
 import React from "react";
+import { BsFillBrushFill } from "react-icons/bs";
+interface FeatureProps {
+  icon: any;
+  heading: string;
+  body: string;
+}
 
-const Feature = () => {
+const Feature = ({ icon, heading, body }: FeatureProps) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2 h-fit">
         <div className="w-12 h-12 rounded-lg bg-gray-200 shadow-sm flex justify-center items-center">
-          H
+          {icon}
         </div>
-        <h2 className="text-xl font-semibold">Feature 1</h2>
+        <h2 className="text-xl font-semibold">{heading}</h2>
       </div>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel quam id,
-        quibusdam mollitia ab quasi neque. Animi quas maiores quo officia
-        corrupti, culpa sit quaerat dolorem expedita eaque, repellat
-        consectetur!
-      </p>
+      <p>{body}</p>
     </div>
   );
 };
@@ -25,7 +26,11 @@ function Features() {
       <div className="w-full h-96 rounded-lg bg-gray-200"></div>
       <div className="grid grid-cols-2 gap-6">
         {[...Array(3)].map((_, i) => (
-          <Feature />
+          <Feature
+            icon={<BsFillBrushFill />}
+            heading="Drawing"
+            body="You can draw anything on the screen"
+          />
         ))}
       </div>
     </div>

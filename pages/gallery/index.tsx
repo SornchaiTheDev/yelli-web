@@ -60,7 +60,6 @@ export const getServerSideProps = async () => {
     events[index] = { ...event, imgset: photos };
     index += 1;
   }
-  console.log(events[0]);
 
   return {
     props: {
