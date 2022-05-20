@@ -68,12 +68,15 @@ import {
   getDoc,
   getDocs,
   Timestamp,
+  query,
+  orderBy,
 } from "firebase/firestore";
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const id = ctx.query.event as string;
   const eventRef = doc(store, "events", id);
   const photosRef = collection(store, "events", id, "photos");
-  const photoQuery = await getDocs(photosRef);
+  const q = query(photosRef, orderBy("created_at", "desc"));
+  const photoQuery = await getDocs(q);
   const eventQuery = await getDoc(eventRef);
   const photos: Photo[] = [];
   const { name, date, amount } = eventQuery.data() as {

@@ -46,7 +46,11 @@ export const getServerSideProps = async () => {
   let index = 0;
   for await (let event of events) {
     const photoRef = collection(store, `events/${event.id}`, "photos");
-    const queryPhotos = query(photoRef, limit(4));
+    const queryPhotos = query(
+      photoRef,
+      limit(4),
+      orderBy("created_at", "desc")
+    );
     const getPhotos = await getDocs(queryPhotos);
     let photos: Photo[] = [];
     getPhotos.forEach((photo) => photos.push(photo.data() as Photo));
