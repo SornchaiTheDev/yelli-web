@@ -46,7 +46,7 @@ const Plans = forwardRef<HTMLDivElement, PlansProps>(({ contactRef }, ref) => {
       <h2 className="text-2xl font-semibold">Plans</h2>
       <div className="flex flex-wrap md:flex-nowrap w-full gap-4 h-full mt-10 px-2">
         {[...Array(4)].map((_, i) => (
-          <Card contactRef={contactRef} />
+          <Card key={i} contactRef={contactRef} />
         ))}
       </div>
     </div>

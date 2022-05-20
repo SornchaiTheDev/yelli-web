@@ -43,7 +43,7 @@ function Navbar({ active }: NavbarProps) {
         {isOpen && (
           <ul className="flex md:hidden flex-col items-stretch px-2 space-y-3 cursor-pointer w-full z-20">
             {NavPaths.map(({ path, name }) => (
-              <Link href={path}>
+              <Link href={path} key={path}>
                 <li
                   className={
                     active === name
@@ -60,7 +60,7 @@ function Navbar({ active }: NavbarProps) {
 
         <ul className="hidden md:flex items-stretch px-0 space-x-3 cursor-pointer w-fit z-20">
           {NavPaths.map(({ path, name }) => (
-            <Link href={path}>
+            <Link href={path} key={path}>
               <li
                 className={
                   active === name

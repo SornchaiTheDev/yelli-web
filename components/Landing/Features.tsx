@@ -27,9 +27,10 @@ function Features() {
       <div className="grid grid-cols-2 gap-6">
         {[...Array(3)].map((_, i) => (
           <Feature
+            key={i}
             icon={<BsFillBrushFill />}
             heading="Drawing"
-            body="You can draw anything on the screen"
+            body={`You can draw anything on the screen`}
           />
         ))}
       </div>
