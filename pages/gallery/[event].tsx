@@ -4,7 +4,7 @@ import { AiOutlineCalendar, AiOutlineFileImage } from "react-icons/ai";
 import ImagePreview from "@components/Gallery/ImagePreview";
 import BackToGallery from "@components/Gallery/Buttons/BackToGallery";
 import BigImage from "@components/Gallery/BigImage";
-
+import { GetServerSideProps } from "next";
 import { Photo } from "@decor/Photo";
 import { InEventProps } from "@decor/Event";
 import { format } from "date-fns";
@@ -69,9 +69,10 @@ import {
   getDocs,
   Timestamp,
 } from "firebase/firestore";
-export const getServerSideProps = async () => {
-  const eventRef = doc(store, "events", "homeparty");
-  const photosRef = collection(store, "events", "homeparty", "photos");
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const id = ctx.query.event as string;
+  const eventRef = doc(store, "events", id);
+  const photosRef = collection(store, "events", id, "photos");
   const photoQuery = await getDocs(photosRef);
   const eventQuery = await getDoc(eventRef);
   const photos: Photo[] = [];

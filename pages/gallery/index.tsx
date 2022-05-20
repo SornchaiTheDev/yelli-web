@@ -13,8 +13,8 @@ function Index({ events }: EventProps) {
         <div className="container mx-auto">
           <h2 className="text-center text-3xl font-semibold my-14">Gallery</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 p-4">
-            {_events.map(({ name, amount, imgset }) => (
-              <Album name={name} amount={amount} imgset={imgset} />
+            {_events.map(({ name, amount, imgset, id }) => (
+              <Album name={name} amount={amount} imgset={imgset} id={id} />
             ))}
           </div>
         </div>
@@ -57,7 +57,7 @@ export const getServerSideProps = async () => {
       ) as Photo[];
     }
 
-    events[index] = { ...event, imgset: photos };
+    events[index] = { ...event, imgset: photos, id: event.id };
     index += 1;
   }
 

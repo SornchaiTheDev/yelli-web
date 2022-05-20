@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AlbumProps } from "@decor/Album";
-const Album = ({ imgset, name, amount }: AlbumProps) => {
+const Album = ({ imgset, name, amount, id }: AlbumProps) => {
   return (
     <div className="flex flex-col items-center gap-4 col-span-1 ">
       <div className="grid grid-cols-2 gap-2 justify-items-stretch place-items-stretch w-full h-full">
@@ -9,7 +9,7 @@ const Album = ({ imgset, name, amount }: AlbumProps) => {
             imgset.length > 1 ? index < imgset.length - 1 : true
           )
           .map(({ src }, index) => (
-            <Link href="/gallery/test" key={src}>
+            <Link href={`/gallery/${id}`} key={src}>
               <div className="rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer h-fit">
                 {src !== null && (
                   <img
