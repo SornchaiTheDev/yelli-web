@@ -54,7 +54,7 @@ export const getServerSideProps = async () => {
     const getPhotos = await getDocs(queryPhotos);
     let photos: Photo[] = [];
     getPhotos.forEach((photo) => photos.push(photo.data() as Photo));
-    console.log(photos.length);
+
     if (photos.length < 4) {
       photos = photos.concat(
         Array(4 - photos.length).fill({ src: null })

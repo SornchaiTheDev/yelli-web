@@ -1,7 +1,8 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useRef, useEffect } from "react";
 import { countryCode } from "@assets/countryCode";
 import sortedArray from "utils/sortArray";
 import Flag from "react-world-flags";
+import useClickOutSide from "@hooks/useClickOutside";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 type codeType = { dial_code: number; code: string };
@@ -13,6 +14,8 @@ function PhoneInput({ onValueChange }: PhoneInputI) {
     dial_code: 66,
     code: "TH",
   });
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isOutside = useClickOutSide(ref);
   const [phone, setPhone] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const onChange = (e: FormEvent<HTMLInputElement>) => {
@@ -28,10 +31,14 @@ function PhoneInput({ onValueChange }: PhoneInputI) {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    setIsOpen(!isOutside);
+  }, [isOutside]);
+
   return (
-    <div className="relative gap-2 flex justify-start items-center ">
+    <div className="relative gap-2 flex justify-start items-center " ref={ref}>
       {isOpen && (
-        <div className="top-12 absolute flex flex-col w-full gap-4 h-64 bg-white overflow-scroll rounded-lg shadow-md">
+        <div className="top-12 absolute flex flex-col w-full gap-4 h-64 bg-white overflow-y-scroll rounded-lg shadow-md">
           {sortedArray(countryCode, "dial_code", "asc").map(
             ({ code, dial_code }) => (
               <div
