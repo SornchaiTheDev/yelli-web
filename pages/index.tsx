@@ -26,7 +26,7 @@ function Index() {
         <Plans ref={plansRef} contactRef={contactRef} />
         <Contact ref={contactRef} />
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

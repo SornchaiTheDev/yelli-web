@@ -42,14 +42,14 @@ const Hero = ({ plansRef }: HeroProps) => {
           </div>
           <div className="flex justify-center items-center gap-20 flex-wrap">
             <video
-              className="w-1/2 rounded-lg"
+              className="w-full md:w-1/2 rounded-lg"
               autoPlay
               loop
               muted
               src="https://firebasestorage.googleapis.com/v0/b/yelli-bebb3.appspot.com/o/assets%2Fpip.mp4?alt=media&token=38de6dec-b00b-4005-a76c-6b5801ef1316"
             />
             <video
-              className="w-1/2 rounded-lg"
+              className="w-full md:w-1/2 rounded-lg"
               autoPlay
               loop
               muted
