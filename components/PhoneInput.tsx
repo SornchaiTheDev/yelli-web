@@ -15,7 +15,7 @@ function PhoneInput({ onValueChange }: PhoneInputI) {
     code: "TH",
   });
   const ref = useRef<HTMLDivElement | null>(null);
-  const isOutside = useClickOutSide(ref);
+  const isOutside = useClickOutSide(ref, true);
   const [phone, setPhone] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const onChange = (e: FormEvent<HTMLInputElement>) => {

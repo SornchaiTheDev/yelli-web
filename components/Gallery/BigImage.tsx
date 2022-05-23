@@ -12,16 +12,14 @@ const BigImage = ({
   src,
   onClose,
   eventName,
-  isShow,
 }: {
   src: string;
   onClose: () => void;
   eventName: string;
-  isShow: boolean;
 }) => {
   const downloadImage = useRef<HTMLAnchorElement | null>(null);
   const content = useRef<HTMLDivElement | null>(null);
-  const isOutside = useClickOutSide(content);
+  const isOutside = useClickOutSide(content, false);
   const handleDownload = async () => {
     try {
       const photo = ref(storage, src!);
@@ -44,10 +42,8 @@ const BigImage = ({
   };
 
   useEffect(() => {
-    if (isShow) {
-      handleDownload();
-    }
-  }, [isShow]);
+    handleDownload();
+  }, []);
 
   useEffect(() => {
     if (isOutside) {
@@ -55,7 +51,6 @@ const BigImage = ({
     }
   }, [isOutside]);
 
-  if (!isShow) return null;
   return (
     <div className="fixed top-0 left-0 z-50 w-full h-screen bg-[rgba(0,0,0,.5)] p-4 flex flex-col justify-center items-center cursor-pointer">
       <div
@@ -69,7 +64,7 @@ const BigImage = ({
         download={`${eventName}_${src.split("/")[src.split("/").length - 1]}`}
       ></a>
       <div
-        className="w-2/3 flex flex-col justify-center items-center cursor-default"
+        className="w-full md:w-2/3 flex flex-col justify-center items-center cursor-default"
         ref={content}
       >
         <div className="w-full overflow-hidden rounded-t-md">

@@ -13,16 +13,24 @@ function Event({ photos, name, date, amount }: InEventProps) {
   const [previewImg, setPreviewImg] = useState<Photo>({ src: null });
   const clearPreviewImg = () => setPreviewImg({ src: null });
 
+  const handleImagePreviewClick = (src: string) => {
+    setTimeout(() => {
+      setPreviewImg({
+        src,
+      });
+    }, 50);
+  };
+
   return (
     <>
       <title>Goodshot PhotoBooth - Gallery</title>
-
-      <BigImage
-        isShow={previewImg.src !== null}
-        src={previewImg.src!}
-        onClose={clearPreviewImg}
-        eventName={name}
-      />
+      {previewImg.src !== null && (
+        <BigImage
+          src={previewImg.src!}
+          onClose={clearPreviewImg}
+          eventName={name}
+        />
+      )}
 
       <div>
         <Navbar active="Gallery" />
@@ -48,11 +56,7 @@ function Event({ photos, name, date, amount }: InEventProps) {
               {photos.map(({ src }) => (
                 <ImagePreview
                   key={src}
-                  onClick={() =>
-                    setPreviewImg({
-                      src,
-                    })
-                  }
+                  onClick={() => handleImagePreviewClick(src)}
                   src={src}
                 />
               ))}
