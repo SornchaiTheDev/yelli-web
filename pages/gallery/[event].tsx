@@ -5,12 +5,12 @@ import ImagePreview from "@components/Gallery/ImagePreview";
 import BackToGallery from "@components/Gallery/Buttons/BackToGallery";
 import BigImage from "@components/Gallery/BigImage";
 import { GetServerSideProps } from "next";
-import { Photo } from "@decor/Photo";
+import { PhotoI } from "@decor/Photo";
 import { InEventProps } from "@decor/Event";
 import { format } from "date-fns";
 
 function Event({ photos, name, date, amount }: InEventProps) {
-  const [previewImg, setPreviewImg] = useState<Photo>({ src: null });
+  const [previewImg, setPreviewImg] = useState<PhotoI>({ src: null });
   const clearPreviewImg = () => setPreviewImg({ src: null });
 
   const handleImagePreviewClick = (src: string) => {
@@ -88,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const q = query(photosRef, orderBy("created_at", "desc"));
   const photoQuery = await getDocs(q);
   const eventQuery = await getDoc(eventRef);
-  const photos: Photo[] = [];
+  const photos: PhotoI[] = [];
   const { name, date, amount } = eventQuery.data() as {
     name: string;
     date: Timestamp;

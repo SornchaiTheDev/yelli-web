@@ -1,7 +1,7 @@
-import { Photo } from "@decor/Photo";
+import { PhotoI } from "@decor/Photo";
 
 export type AlbumProps = {
-  imgset: Photo[];
+  imgset: PhotoI[];
   name: string;
   amount: number;
   id: string;

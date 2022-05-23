@@ -20,16 +20,13 @@ function Index() {
         src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
       />
       <div className="container mx-auto">
-        <div className="flex flex-col max-h-screen h-screen">
-          <Navbar active="Home" />
-          <Hero plansRef={plansRef} />
-          <Scroll />
-        </div>
+        <Navbar active="Home" />
+        <Hero plansRef={plansRef} />
         <Features />
         <Plans ref={plansRef} contactRef={contactRef} />
         <Contact ref={contactRef} />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

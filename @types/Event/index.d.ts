@@ -1,4 +1,4 @@
-import { Photo } from "@decor/Photo";
+import { PhotoI } from "@decor/Photo";
 import { Timestamp } from "firebase/firestore";
 
 export type InEventProps = {
@@ -16,6 +16,6 @@ export interface Event {
   name: string;
   date: Timestamp;
   amount: number;
-  imgset: Photo[];
+  imgset: PhotoI[];
   id: string;
 }

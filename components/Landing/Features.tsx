@@ -1,5 +1,7 @@
+import Album from "@components/Album";
 import React from "react";
 import { BsFillBrushFill } from "react-icons/bs";
+import ImageGrid from "./ImageGrid";
 interface FeatureProps {
   icon: any;
   heading: string;
@@ -23,7 +25,24 @@ const Feature = ({ icon, heading, body }: FeatureProps) => {
 function Features() {
   return (
     <div className="flex flex-wrap md:flex-nowrap gap-4 my-14 p-6 w-full">
-      <div className="w-full h-96 rounded-lg bg-gray-200"></div>
+      <ImageGrid
+        className="flex-1"
+        imgset={[
+          {
+            src: "https://storage.googleapis.com/yelli-bebb3.appspot.com/assets/54090.jpg",
+          },
+          {
+            src: "https://storage.googleapis.com/yelli-bebb3.appspot.com/assets/54091.jpg",
+          },
+          {
+            src: "https://storage.googleapis.com/yelli-bebb3.appspot.com/assets/54094.jpg",
+          },
+          {
+            src: "https://storage.googleapis.com/yelli-bebb3.appspot.com/assets/54098.jpg",
+          },
+        ]}
+      />
+
       <div className="grid grid-cols-2 gap-6">
         {[...Array(3)].map((_, i) => (
           <Feature

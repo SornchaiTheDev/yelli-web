@@ -35,7 +35,7 @@ export default Index;
 import { collection, query, limit, orderBy, getDocs } from "firebase/firestore";
 import { store } from "../../firebase";
 import { Event } from "@decor/Event";
-import { Photo } from "@decor/Photo";
+import { PhotoI } from "@decor/Photo";
 import { v4 as uuid } from "uuid";
 
 export const getServerSideProps = async () => {
@@ -60,9 +60,9 @@ export const getServerSideProps = async () => {
       orderBy("created_at", "desc")
     );
     const getPhotos = await getDocs(queryPhotos);
-    let photos: Photo[] = [];
+    let photos: PhotoI[] = [];
     getPhotos.forEach((photo) =>
-      photos.push({ ...(photo.data() as Photo), id: photo.id })
+      photos.push({ ...(photo.data() as PhotoI), id: photo.id })
     );
 
     if (photos.length < 4) {
@@ -70,7 +70,7 @@ export const getServerSideProps = async () => {
       dummyPhoto.forEach(
         (photo, index) => (dummyPhoto[index] = { ...photo, id: uuid() })
       );
-      photos = photos.concat(dummyPhoto) as Photo[];
+      photos = photos.concat(dummyPhoto) as PhotoI[];
     }
 
     events[index] = { ...event, imgset: photos, id: event.id };

@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import { ref, getBlob } from "firebase/storage";
 import { storage } from "../../firebase";
-import { Photo } from "@decor/Photo";
+import { PhotoI } from "@decor/Photo";
 
 type ImagePreviewProps = {
   name: string;
@@ -12,7 +12,7 @@ type ImagePreviewProps = {
   BigPreview?: boolean;
   onClick?: () => void;
 };
-const ImagePreview: NextPage<Photo & ImagePreviewProps> = (props) => {
+const ImagePreview: NextPage<PhotoI & ImagePreviewProps> = (props) => {
   const { name, src, Horizontal, BigPreview, onClick, className } = props;
 
   return (
