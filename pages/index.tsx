@@ -15,6 +15,7 @@ function Index() {
   const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
   return (
     <>
+      <title>Goodshot PhotoBooth</title>
       <Script
         src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
       />

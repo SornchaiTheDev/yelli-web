@@ -8,6 +8,7 @@ function Index({ events }: EventProps) {
 
   return (
     <div>
+      <title>Goodshot PhotoBooth - Gallery</title>
       <Navbar active="Gallery" />
       <div className="mt-24 w-full flex flex-col items-center">
         <div className="container mx-auto">
