@@ -1,6 +1,7 @@
 import Button from "@components/Button";
 import { useRouter } from "next/router";
 import useWindow from "../../hooks/useWindow";
+import Image from "next/image";
 type HeroProps = {
   plansRef: React.RefObject<HTMLDivElement>;
 };
@@ -17,10 +18,15 @@ const Hero = ({ plansRef }: HeroProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-full mt-48">
       <div className="relative">
-        <img
-          src="./decoration/blur.svg"
+        <Image
+          layout="fill"
           className="absolute top-28 -left-10 -z-10"
+          width={200}
+          height={300}
+          src="/decoration/blur.svg"
+          alt="Blur decoration for Hero Section"
         />
+
         <div className="h-full flex flex-col justify-center gap-4 px-10">
           <h2 className="text-6xl font-bold">Save your memories into photos</h2>
           <p>

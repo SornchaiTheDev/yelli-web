@@ -6,13 +6,14 @@ import { storage } from "../../firebase";
 import { Photo } from "@decor/Photo";
 
 type ImagePreviewProps = {
+  name: string;
   className?: string;
   Horizontal?: boolean;
   BigPreview?: boolean;
   onClick?: () => void;
 };
 const ImagePreview: NextPage<Photo & ImagePreviewProps> = (props) => {
-  const { src, Horizontal, BigPreview, onClick, className } = props;
+  const { name, src, Horizontal, BigPreview, onClick, className } = props;
 
   return (
     <div
@@ -25,6 +26,7 @@ const ImagePreview: NextPage<Photo & ImagePreviewProps> = (props) => {
           blurDataURL={src!}
           layout="responsive"
           className="h-full object-cover object-center pointer-events-none rounded-lg"
+          alt={`${name} Album's photo`}
           width={900}
           height={600}
           src={src!}

@@ -55,8 +55,9 @@ function Event({ photos, name, date, amount }: InEventProps) {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 p-4">
               {photos.map(({ src }) => (
                 <ImagePreview
+                  name={name}
                   key={src}
-                  onClick={() => handleImagePreviewClick(src)}
+                  onClick={() => handleImagePreviewClick(src!)}
                   src={src}
                 />
               ))}

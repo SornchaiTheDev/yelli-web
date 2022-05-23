@@ -43,13 +43,13 @@ const BigImage = ({
 
   useEffect(() => {
     handleDownload();
-  }, []);
+  });
 
   useEffect(() => {
     if (isOutside) {
       onClose();
     }
-  }, [isOutside]);
+  }, [isOutside, onClose]);
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full h-screen bg-[rgba(0,0,0,.5)] p-4 flex flex-col justify-center items-center cursor-pointer">
@@ -69,6 +69,7 @@ const BigImage = ({
       >
         <div className="w-full overflow-hidden rounded-t-md">
           <Image
+            alt={`${eventName}_${src.split("/")[src.split("/").length - 1]}`}
             placeholder="blur"
             blurDataURL={src!}
             layout="responsive"

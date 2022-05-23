@@ -33,7 +33,7 @@ function Navbar({ active }: NavbarProps) {
     <nav className={`left-0 top-0 z-20 p-2 w-full bg-white fixed`}>
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 w-full">
         <div className="px-2 py-4 flex justify-between items-center relative w-full">
-          <Link href="/">
+          <Link href="/" passHref>
             <h1 className="text-2xl md:text-2xl text-gray-900 cursor-pointer">
               GoodShot
             </h1>
@@ -43,7 +43,7 @@ function Navbar({ active }: NavbarProps) {
         {isOpen && (
           <ul className="flex md:hidden flex-col items-stretch px-2 space-y-3 cursor-pointer w-full z-20">
             {NavPaths.map(({ path, name }) => (
-              <Link href={path} key={path}>
+              <Link href={path} key={path} passHref>
                 <li
                   className={
                     active === name
@@ -60,7 +60,7 @@ function Navbar({ active }: NavbarProps) {
 
         <ul className="hidden md:flex items-stretch px-0 space-x-3 cursor-pointer w-fit z-20">
           {NavPaths.map(({ path, name }) => (
-            <Link href={path} key={path}>
+            <Link href={path} key={path} passHref>
               <li
                 className={
                   active === name

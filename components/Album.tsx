@@ -1,24 +1,32 @@
 import Link from "next/link";
+import Image from "next/image";
 import { AlbumProps } from "@decor/Album";
+
 const Album = ({ imgset, name, amount, id }: AlbumProps) => {
   return (
     <div className="flex flex-col items-center gap-4 col-span-1">
       <div className="grid grid-cols-2 gap-2 justify-items-stretch place-items-stretch w-full h-full">
         {imgset
           .filter((_, index) => index < imgset.length - 1)
-          .map(({ src }, index) => (
-            <Link href={`/gallery/${id}`} key={src}>
+          .map(({ src }) => (
+            <Link href={`/gallery/${id}`} key={src} passHref>
               <div className="rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer h-fit">
                 {src !== null && (
-                  <img
+                  <Image
+                    alt={`${name} ALbum`}
                     className="h-full object-cover object-center pointer-events-none"
+                    placeholder="blur"
+                    blurDataURL={src!}
+                    layout="responsive"
+                    width={900}
+                    height={600}
                     src={src!}
                   />
                 )}
               </div>
             </Link>
           ))}
-        <Link href="/gallery/test">
+        <Link href="/gallery/test" passHref>
           <div className="rounded-lg overflow-hidden bg-gray-50 relative  aspect-w-3 aspect-h-2 cursor-pointer">
             {amount > 4 && (
               <>
@@ -28,8 +36,14 @@ const Album = ({ imgset, name, amount, id }: AlbumProps) => {
                   </h2>
                 </div>
                 {imgset[imgset.length - 1].src !== null && (
-                  <img
+                  <Image
                     className="h-full object-cover object-center pointer-events-none"
+                    alt={`${name} ALbum`}
+                    placeholder="blur"
+                    blurDataURL={imgset[imgset.length - 1].src!}
+                    layout="responsive"
+                    width={900}
+                    height={600}
                     src={imgset[imgset.length - 1].src!}
                   />
                 )}

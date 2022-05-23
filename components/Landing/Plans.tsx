@@ -53,4 +53,6 @@ const Plans = forwardRef<HTMLDivElement, PlansProps>(({ contactRef }, ref) => {
   );
 });
 
+Plans.displayName = "Plans";
+
 export default Plans;

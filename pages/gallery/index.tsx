@@ -15,7 +15,13 @@ function Index({ events }: EventProps) {
           <h2 className="text-center text-3xl font-semibold my-14">Gallery</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 p-4">
             {_events.map(({ name, amount, imgset, id }) => (
-              <Album name={name} amount={amount} imgset={imgset} id={id} />
+              <Album
+                key={id}
+                name={name}
+                amount={amount}
+                imgset={imgset}
+                id={id}
+              />
             ))}
           </div>
         </div>
