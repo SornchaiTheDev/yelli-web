@@ -8,6 +8,12 @@ interface FeatureProps {
   body: string;
 }
 
+const features = [
+  { heading: "Drawing", body: "You can draw anything on the screen" },
+  { heading: "Sticker", body: "You can draw anything on the screen" },
+  { heading: "Instant Print", body: "You can draw anything on the screen" },
+];
+
 const Feature = ({ icon, heading, body }: FeatureProps) => {
   return (
     <div className="flex flex-col gap-4">
@@ -44,12 +50,12 @@ function Features() {
       />
 
       <div className="grid grid-cols-2 gap-6">
-        {[...Array(3)].map((_, i) => (
+        {features.map(({ heading, body }, i) => (
           <Feature
             key={i}
             icon={<BsFillBrushFill />}
-            heading="Drawing"
-            body={`You can draw anything on the screen`}
+            heading={heading}
+            body={body}
           />
         ))}
       </div>

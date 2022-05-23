@@ -27,7 +27,6 @@ const ImageGrid = ({ imgset, className }: ImageGridI) => {
         <div className="relative  rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer h-fit">
           {imgset[imgset.length - 1].src !== null && (
             <Image
-              alt={`${name} Album`}
               placeholder="blur"
               blurDataURL={imgset[imgset.length - 1].src!}
               layout="fill"
