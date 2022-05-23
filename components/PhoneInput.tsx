@@ -32,11 +32,11 @@ function PhoneInput({ onValueChange }: PhoneInputI) {
   };
 
   useEffect(() => {
-    setIsOpen(!isOutside);
+    if (isOutside) setIsOpen(false);
   }, [isOutside]);
 
   return (
-    <div className="relative gap-2 flex justify-start items-center " ref={ref}>
+    <div className="relative gap-2 flex justify-start items-center" ref={ref}>
       {isOpen && (
         <div className="top-12 absolute flex flex-col w-full gap-4 h-64 bg-white overflow-y-scroll rounded-lg shadow-md">
           {sortedArray(countryCode, "dial_code", "asc").map(
