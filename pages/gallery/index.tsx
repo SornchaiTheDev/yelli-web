@@ -36,6 +36,7 @@ import { collection, query, limit, orderBy, getDocs } from "firebase/firestore";
 import { store } from "../../firebase";
 import { Event } from "@decor/Event";
 import { Photo } from "@decor/Photo";
+import { v4 as uuid } from "uuid";
 
 export const getServerSideProps = async () => {
   const eventRef = collection(store, "events");
@@ -60,12 +61,16 @@ export const getServerSideProps = async () => {
     );
     const getPhotos = await getDocs(queryPhotos);
     let photos: Photo[] = [];
-    getPhotos.forEach((photo) => photos.push(photo.data() as Photo));
+    getPhotos.forEach((photo) =>
+      photos.push({ ...(photo.data() as Photo), id: photo.id })
+    );
 
     if (photos.length < 4) {
-      photos = photos.concat(
-        Array(4 - photos.length).fill({ src: null })
-      ) as Photo[];
+      const dummyPhoto = Array(4 - photos.length).fill({ src: null });
+      dummyPhoto.forEach(
+        (photo, index) => (dummyPhoto[index] = { ...photo, id: uuid() })
+      );
+      photos = photos.concat(dummyPhoto) as Photo[];
     }
 
     events[index] = { ...event, imgset: photos, id: event.id };
