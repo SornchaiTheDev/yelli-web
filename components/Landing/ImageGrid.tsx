@@ -12,9 +12,13 @@ const ImageGrid = ({ imgset, className }: ImageGridI) => {
         {imgset
           .filter((_, index) => index < imgset.length - 1)
           .map((photo) => (
-            <div className="relative rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer h-fit">
+            <div
+              key={photo.src}
+              className="relative rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer h-fit"
+            >
               {photo.src !== null && (
                 <Image
+                  alt="Features"
                   placeholder="blur"
                   blurDataURL={photo.src!}
                   layout="fill"
@@ -27,6 +31,7 @@ const ImageGrid = ({ imgset, className }: ImageGridI) => {
         <div className="relative  rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer h-fit">
           {imgset[imgset.length - 1].src !== null && (
             <Image
+              alt="Features"
               placeholder="blur"
               blurDataURL={imgset[imgset.length - 1].src!}
               layout="fill"
