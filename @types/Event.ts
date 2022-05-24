@@ -2,7 +2,7 @@ import { PhotoI } from "@decor/Photo";
 import { Timestamp } from "firebase/firestore";
 
 export type InEventProps = {
-  photos: Photo[];
+  photos: PhotoI[];
   name: string;
   date: Date;
   amount: number;

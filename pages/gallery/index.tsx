@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "@components/common/Navbar";
 import Album from "@components/Album";
-import { EventProps } from "@decor/Event";
+import { EventProps } from "@decor/event";
 
 function Index({ events }: EventProps) {
   const _events = JSON.parse(events) as Event[];
@@ -34,7 +34,7 @@ export default Index;
 
 import { collection, query, limit, orderBy, getDocs } from "firebase/firestore";
 import { store } from "../../firebase";
-import { Event } from "@decor/Event";
+import { Event } from "@decor/event";
 import { PhotoI } from "@decor/Photo";
 import { v4 as uuid } from "uuid";
 

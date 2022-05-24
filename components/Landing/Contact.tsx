@@ -1,9 +1,11 @@
 import { BsTelephone, BsMailbox } from "react-icons/bs";
 import { AiOutlineMail, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { IoClose } from "react-icons/io5";
 import { FormEvent, forwardRef, useState } from "react";
 import axios from "axios";
 import emailjs from "emailjs-com";
 import PhoneInput from "@components/PhoneInput";
+import { BiTime } from "react-icons/bi";
 
 declare global {
   interface Window {
@@ -118,7 +120,40 @@ const Contact = forwardRef<HTMLDivElement>((props, ref) => {
               }
             />
 
-            <label>
+            <button className="inline-flex items-center gap-1 self-end bg-red-500 rounded-lg p-1 text-white">
+              <IoClose />
+              <p>ยกเลิกแพ็คเกจ</p>
+            </button>
+            <div className="bg-white border-2 w-full rounded-lg p-4 h-fit flex flex-col gap-4">
+              <span className="inline-flex gap-2 items-center justify-between w-full">
+                <h2 className="text-2xl font-semibold">{"แพ็คเกจ 1"}</h2>
+                <h2 className="font-bold text-xl">
+                  {(1 * 5000 + 2 * 2000)
+                    .toString()
+                    .replace(/(\d)(?=(\d{3})+\b)/g, "$1,")}{" "}
+                  บาท
+                </h2>
+              </span>
+
+              <hr />
+              <div className="flex flex-col gap-2 h-full">
+                <div className="flex flex-col gap-4">
+                  <span className="inline-flex gap-2 items-center justify-between w-full">
+                    <h2 className="text-xl">ค่าอุปกรณ์</h2>
+                    <h2>{1} ชุด</h2>
+                  </span>
+                  <p>
+                    (กล้อง DSLR , ปริ้นท์เตอร์ , ชุดไฟสตูดิโอ , พร็อพในงาน )
+                  </p>
+                  <div className="inline-flex items-center gap-2">
+                    <BiTime />
+                    <h2>{2} ชั่วโมง</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* <label>
               Plan You Need <span className="text-red-500">*</span>
             </label>
             <div className="flex gap-2">
@@ -134,7 +169,7 @@ const Contact = forwardRef<HTMLDivElement>((props, ref) => {
                   <span className="ml-2">{type}</span>
                 </label>
               ))}
-            </div>
+            </div> */}
             <label>Message (optional)</label>
             <textarea
               className="rounded-lg"

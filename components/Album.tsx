@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { AlbumProps } from "@decor/Album";
+import { AlbumProps } from "@decor/album";
 
 const Album = ({ imgset, name, amount, id }: AlbumProps) => {
   return (
