@@ -6,7 +6,7 @@ import BackToGallery from "@components/Gallery/Buttons/BackToGallery";
 import BigImage from "@components/Gallery/BigImage";
 import { GetServerSideProps } from "next";
 import { PhotoI } from "@decor/Photo";
-import { InEventProps } from "@decor/event";
+import { InEventProps } from "@decor/Event";
 import { format } from "date-fns";
 
 function Event({ photos, name, date, amount }: InEventProps) {
