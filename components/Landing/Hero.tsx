@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useWindow from "../../hooks/useWindow";
 import Image from "next/image";
 import Scroll from "./Scroll";
+import Typewriter from "typewriter-effect";
 type HeroProps = {
   plansRef: React.RefObject<HTMLDivElement>;
 };
@@ -22,8 +23,18 @@ const Hero = ({ plansRef }: HeroProps) => {
         {/* <div className="grid grid-cols-1 md:grid-cols-2 h-full mt-48"> */}
         <div className="h-full px-10">
           <h2 className="text-5xl font-bold text-center">
-            Save your memories into photos
+            <Typewriter
+              options={{
+                strings: [
+                  "เก็บความทรงจำของคุณให้อยู่ในรูปถ่าย",
+                  "ของที่ละลึกในช่วงเวลาพิเศษของคุณ",
+                ],
+                autoStart: true,
+                loop: true,
+              }}
+            />
           </h2>
+
           <p className="max-w-1/2 mt-10 text-center">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
             iusto nostrum libero. Id, numquam totam unde reiciendis possimus

@@ -49,20 +49,20 @@ const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
                 <h2 className="text-xl">ค่าอุปกรณ์</h2>
                 <h2>{tools} ชุด</h2>
               </span>
-              <p>(กล้อง DSLR , ปริ้นท์เตอร์ , ชุดไฟสตูดิโอ , พร็อพในงาน )</p>
+              <p>( ช่างภาพ , กล้อง DSLR , ปริ้นท์เตอร์ , ชุดไฟสตูดิโอ )</p>
 
               <input
                 type="range"
                 className="appearance-none overflow-hidden bg-gray-200 rounded-full h-5"
                 value={tools}
                 min={1}
-                max={10}
+                max={3}
                 onChange={handleOnToolsChange}
               />
             </span>
-            <div className="inline-flex items-center gap-2">
+            <div className="inline-flex items-center gap-2 mt-10">
               <BiTime />
-              <h2>{hours} ชั่วโมง</h2>
+              <h2>จำนวน {hours} ชั่วโมง</h2>
             </div>
 
             <input
@@ -70,7 +70,7 @@ const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
               className="appearance-none overflow-hidden bg-gray-200 rounded-full h-5"
               value={hours}
               min={1}
-              max={20}
+              max={5}
               onChange={handleOnHoursChange}
             />
           </div>

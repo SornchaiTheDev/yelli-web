@@ -4,9 +4,9 @@ import CustomCard from "@components/CustomCard";
 import Card from "@components/PlanCard";
 
 const plans = [
-  { name: "แพ็คเกจ 1", tools: 1, hours: 1 },
-  { name: "แพ็คเกจ 2", tools: 2, hours: 2 },
-  { name: "แพ็คเกจ 3", tools: 3, hours: 3 },
+  { name: "แพ็คเกจ 1", tools: 1, hours: 4 },
+  { name: "แพ็คเกจ 2", tools: 2, hours: 4 },
+  { name: "แพ็คเกจ 3", tools: 3, hours: 4 },
 ];
 
 type PlansProps = {

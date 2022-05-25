@@ -1,6 +1,7 @@
 import useWindow from "@hooks/useWindow";
 import { PlanProps } from "@decor/Plan";
 import { BiTime } from "react-icons/bi";
+import { toCurrency } from "@utils/currency";
 
 type CardProps = {
   name: string;
@@ -25,24 +26,25 @@ const Card = ({ contactRef, name, tools, hours, selectPlan }: CardProps) => {
       <span className="inline-flex gap-2 items-center justify-between w-full">
         <h2 className="text-2xl font-semibold">{name}</h2>
         <h2 className="font-bold text-xl">
-          {(tools * 5000 + hours * 2000)
-            .toString()
-            .replace(/(\d)(?=(\d{3})+\b)/g, "$1,")}{" "}
-          บาท
+          {toCurrency(tools * 5000 + hours * 2000)} บาท
         </h2>
       </span>
 
       <hr />
       <div className="flex flex-col gap-2 h-full">
         <div className="flex flex-col gap-4">
-          <span className="inline-flex gap-2 items-center justify-between w-full">
-            <h2 className="text-xl">ค่าอุปกรณ์</h2>
+          <div className="flex justify-between">
+            <h2>ค่าอุปกรณ์</h2>
             <h2>{tools} ชุด</h2>
-          </span>
-          <p>(กล้อง DSLR , ปริ้นท์เตอร์ , ชุดไฟสตูดิโอ , พร็อพในงาน )</p>
-          <div className="inline-flex items-center gap-2">
-            <BiTime />
-            <h2>{hours} ชั่วโมง</h2>
+            <h2>{toCurrency(tools * 5000)} บาท</h2>
+          </div>
+          <p>( ช่างภาพ , กล้อง DSLR , ปริ้นท์เตอร์ , ชุดไฟสตูดิโอ )</p>
+          <div className="flex justify-between mt-16">
+            <div className="inline-flex items-center gap-2">
+              <BiTime />
+              <h2>จำนวน {hours} ชั่วโมง</h2>
+            </div>
+            <h2>{toCurrency(hours * 2000)} บาท</h2>
           </div>
         </div>
       </div>

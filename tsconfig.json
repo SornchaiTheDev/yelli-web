@@ -20,7 +20,8 @@
       "@assets/*": ["./assets/*"],
       "@hooks/*": ["./hooks/*"],
       "@decor/*": ["./@types/*"],
-      "@lottie/*": ["./assets/lottie/*"]
+      "@lottie/*": ["./assets/lottie/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
