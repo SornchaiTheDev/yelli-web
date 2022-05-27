@@ -57,6 +57,7 @@ const Hero = ({ plansRef }: HeroProps) => {
               autoPlay
               loop
               muted
+              playsInline
               src="https://firebasestorage.googleapis.com/v0/b/yelli-bebb3.appspot.com/o/assets%2Fpip.mp4?alt=media&token=38de6dec-b00b-4005-a76c-6b5801ef1316"
             />
             <video
@@ -64,6 +65,7 @@ const Hero = ({ plansRef }: HeroProps) => {
               autoPlay
               loop
               muted
+              playsInline
               src="https://firebasestorage.googleapis.com/v0/b/yelli-bebb3.appspot.com/o/assets%2F3d.mp4?alt=media&token=5db42a80-7ac8-441e-add0-20fcb46409f4"
             />
           </div>

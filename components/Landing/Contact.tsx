@@ -1,7 +1,7 @@
 import { BsTelephone, BsMailbox } from "react-icons/bs";
 import { AiOutlineMail, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import { FormEvent, forwardRef, useState } from "react";
+import { FormEvent, forwardRef, useState, useEffect } from "react";
 import axios from "axios";
 import emailjs from "emailjs-com";
 import PhoneInput from "@components/PhoneInput";
@@ -67,15 +67,29 @@ interface ContactProps {
   cancelPlan: () => void;
 }
 
+interface FormI {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  plan_name: string;
+  plan_tools: string;
+  plan_hours: string;
+  plan_price: string;
+}
+
 const Contact = forwardRef<HTMLDivElement, ContactProps>(
   ({ selectedPlan, cancelPlan }, ref) => {
     const [formStatus, setFormStatus] = useState<string>("INITIAL");
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<FormI>({
       name: "",
       email: "",
       phone: "",
-      plan: "",
       message: "",
+      plan_name: "",
+      plan_tools: "",
+      plan_hours: "",
+      plan_price: "",
     });
 
     const handleSubmit = (e: FormEvent) => {
@@ -94,7 +108,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
           await emailjs.send(
             "service_vcp9z2j",
             "template_8505ivy",
-            form,
+            form as any,
             "r5JxDrTgFL6MEWyG_"
           );
         }
@@ -110,6 +124,10 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
       e.preventDefault();
       cancelPlan();
     };
+
+    useEffect(() => {
+      setForm((prev) => ({ ...prev, plan: selectedPlan }));
+    }, [selectedPlan]);
 
     return (
       <div
