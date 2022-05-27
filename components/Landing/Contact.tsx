@@ -72,10 +72,6 @@ interface FormI {
   email: string;
   phone: string;
   message: string;
-  plan_name: string;
-  plan_tools: number;
-  plan_hours: number;
-  plan_price: string;
 }
 
 const Contact = forwardRef<HTMLDivElement, ContactProps>(
@@ -86,21 +82,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
       email: "",
       phone: "",
       message: "",
-      plan_name: "",
-      plan_tools: 0,
-      plan_hours: 0,
-      plan_price: "",
     });
-
-    useEffect(() => {
-      setForm((prev) => ({
-        ...prev,
-        plan_name: selectedPlan.name,
-        plan_hours: selectedPlan.hours,
-        plan_tools: selectedPlan.tools,
-        plan_price: selectedPlan.price,
-      }));
-    }, [selectedPlan]);
 
     const handleSubmit = (e: FormEvent) => {
       e.preventDefault();
@@ -118,7 +100,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
           await emailjs.send(
             "service_vcp9z2j",
             "template_8505ivy",
-            form as any,
+            { ...(form as any), ...selectedPlan },
             "r5JxDrTgFL6MEWyG_"
           );
         }
@@ -134,6 +116,16 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
       e.preventDefault();
       cancelPlan();
     };
+
+    useEffect(() => {
+      for (let value in form) {
+        if (value !== "message" && form[value as keyof FormI] === "") {
+          setFormStatus("DISABLED");
+        } else {
+          setFormStatus("INITIAL");
+        }
+      }
+    }, [form]);
 
     return (
       <div
@@ -212,7 +204,11 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
 
               <button
                 className="bg-yellow-300 w-32 h-10 rounded-lg flex justify-center items-center disabled:bg-gray-200 disabled:cursor-not-allowed"
-                disabled={formStatus === "SUBMITTING" || selectedPlan === null}
+                disabled={
+                  formStatus === "SUBMITTING" ||
+                  formStatus === "DISABLED" ||
+                  selectedPlan === null
+                }
               >
                 {formStatus === "SUBMITTING" ? (
                   <AiOutlineLoading3Quarters className="animate-spin fill-white text-2xl" />
