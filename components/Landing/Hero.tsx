@@ -19,23 +19,14 @@ const Hero = ({ plansRef }: HeroProps) => {
   const router = useRouter();
   return (
     <>
-      <div className="mt-24 md:mt-48 gap-20">
+      <div className="mt-32 md:mt-48 gap-20">
         {/* <div className="grid grid-cols-1 md:grid-cols-2 h-full mt-48"> */}
-        <div className="h-full px-10">
+        <div className="h-full px-10 flex flex-col justify-center items-center">
           <h2 className="text-5xl font-bold text-center">
-            <Typewriter
-              options={{
-                strings: [
-                  "เก็บความทรงจำของคุณให้อยู่ในรูปถ่าย",
-                  "ของที่ละลึกในช่วงเวลาพิเศษของคุณ",
-                ],
-                autoStart: true,
-                loop: true,
-              }}
-            />
+            เก็บความทรงจำของคุณให้อยู่ในรูปถ่าย
           </h2>
 
-          <p className="max-w-1/2 mt-10 text-center">
+          <p className="max-w-lg mt-10 text-center">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
             iusto nostrum libero. Id, numquam totam unde reiciendis possimus
             magnam quasi obcaecati
