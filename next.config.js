@@ -6,6 +6,7 @@ const nextConfig = {
       "storage.googleapis.com",
       "images.unsplash.com",
       "photos.smugmug.com",
+      "placekitten.com",
     ],
   },
   i18n: {

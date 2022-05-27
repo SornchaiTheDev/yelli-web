@@ -7,12 +7,13 @@ import { PhotoI } from "@decor/Photo";
 
 type ImagePreviewProps = {
   name: string;
+  src: string;
   className?: string;
   Horizontal?: boolean;
   BigPreview?: boolean;
   onClick?: () => void;
 };
-const ImagePreview: NextPage<PhotoI & ImagePreviewProps> = (props) => {
+const ImagePreview: NextPage<ImagePreviewProps> = (props) => {
   const { name, src, Horizontal, BigPreview, onClick, className } = props;
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@components/common/Navbar";
 import { AiOutlineCalendar, AiOutlineFileImage } from "react-icons/ai";
 import ImagePreview from "@components/Gallery/ImagePreview";
@@ -8,10 +8,31 @@ import { GetServerSideProps } from "next";
 import { PhotoI } from "@decor/Photo";
 import { InEventProps } from "@decor/Event";
 import { format } from "date-fns";
+import useInfiniteScroll from "react-infinite-scroll-hook";
+import useFetchPhoto from "@hooks/useFetchPhoto";
 
-function Event({ photos, name, date, amount }: InEventProps) {
-  const [previewImg, setPreviewImg] = useState<PhotoI>({ src: null });
+function Event({ photos, name, date, amount, id }: InEventProps) {
+  const [photosAlbum, setPhotosAlbum] = useState<PhotoI[]>(photos);
+  const [previewImg, setPreviewImg] = useState<{ src: string | null }>({
+    src: null,
+  });
   const clearPreviewImg = () => setPreviewImg({ src: null });
+  const { fetchPhoto, loading, hasNextPage, error, setLastPhoto } =
+    useFetchPhoto(id, photosAlbum.length, photos[photos.length - 1]);
+
+  // init infinite scroll
+  const [sentryRef] = useInfiniteScroll({
+    loading,
+    hasNextPage,
+    disabled: error,
+    onLoadMore: () => {
+      fetchPhoto().then((res) => {
+        setLastPhoto(res[res.length - 1]);
+        setPhotosAlbum([...photosAlbum, ...res]);
+      });
+    },
+    rootMargin: "0px 0px 400px 0px",
+  });
 
   const handleImagePreviewClick = (src: string) => {
     setTimeout(() => {
@@ -53,16 +74,17 @@ function Event({ photos, name, date, amount }: InEventProps) {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 p-4">
-              {photos.map(({ src }) => (
+              {photosAlbum.map(({ src }, i) => (
                 <ImagePreview
                   name={name}
-                  key={src}
+                  key={i}
                   onClick={() => handleImagePreviewClick(src!)}
-                  src={src}
+                  src={src!}
                 />
               ))}
             </div>
           </div>
+          <div ref={sentryRef} />
         </div>
       </div>
     </>
@@ -80,12 +102,13 @@ import {
   Timestamp,
   query,
   orderBy,
+  limit,
 } from "firebase/firestore";
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const id = ctx.query.event as string;
   const eventRef = doc(store, "events", id);
   const photosRef = collection(store, "events", id, "photos");
-  const q = query(photosRef, orderBy("created_at", "desc"));
+  const q = query(photosRef, orderBy("created_at", "desc"), limit(2));
   const photoQuery = await getDocs(q);
   const eventQuery = await getDoc(eventRef);
   const photos: PhotoI[] = [];
@@ -95,9 +118,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     amount: number;
   };
 
-  photoQuery.forEach((photo) => photos.push({ src: photo.data().src }));
+  photoQuery.forEach((photo) =>
+    photos.push({ src: photo.data().src, id: photo.id })
+  );
   return {
     props: {
+      id,
       photos,
       name,
       date: date.toDate().toString(),
