@@ -16,7 +16,7 @@ const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 rounded-full font-semibold shadow-sm hover:brightness-95 duration-200 ${className}`}
+      className={`p-3 rounded-lg font-semibold hover:brightness-95 duration-200 ${className}`}
       style={{ color }}
     >
       {children}

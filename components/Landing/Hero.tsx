@@ -41,11 +41,11 @@ const Hero = ({ plansRef }: HeroProps) => {
             magnam quasi obcaecati
           </p>
           <div className="flex gap-2 justify-center my-10">
-            <Button className="bg-yellow-300 shadow-md" onClick={scrollToPlans}>
+            <Button className="bg-yellow-300" onClick={scrollToPlans}>
               View Plans
             </Button>
             <Button
-              className="bg-gray-200 shadow-md"
+              className="bg-gray-200"
               onClick={() => router.push("/gallery")}
             >
               Gallery

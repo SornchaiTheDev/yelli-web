@@ -73,8 +73,8 @@ interface FormI {
   phone: string;
   message: string;
   plan_name: string;
-  plan_tools: string;
-  plan_hours: string;
+  plan_tools: number;
+  plan_hours: number;
   plan_price: string;
 }
 
@@ -87,10 +87,20 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
       phone: "",
       message: "",
       plan_name: "",
-      plan_tools: "",
-      plan_hours: "",
+      plan_tools: 0,
+      plan_hours: 0,
       plan_price: "",
     });
+
+    useEffect(() => {
+      setForm((prev) => ({
+        ...prev,
+        plan_name: selectedPlan.name,
+        plan_hours: selectedPlan.hours,
+        plan_tools: selectedPlan.tools,
+        plan_price: selectedPlan.price,
+      }));
+    }, [selectedPlan]);
 
     const handleSubmit = (e: FormEvent) => {
       e.preventDefault();
@@ -125,10 +135,6 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
       cancelPlan();
     };
 
-    useEffect(() => {
-      setForm((prev) => ({ ...prev, plan: selectedPlan }));
-    }, [selectedPlan]);
-
     return (
       <div
         ref={ref}
@@ -152,6 +158,11 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
             </div>
           </div>
           <div className="col-span-6 md:col-span-4 bg-white w-full h-full flex flex-col p-4">
+            {selectedPlan === null && (
+              <ul className="text-red-500 my-2">
+                <li>*Please Select Plan First</li>
+              </ul>
+            )}
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               {contact.map(({ name, placeholder, type, required, key }) => (
                 <div key={name} className="flex flex-col gap-4">
@@ -200,8 +211,8 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
               />
 
               <button
-                className="bg-yellow-300 w-32 h-10 rounded-lg flex justify-center items-center"
-                disabled={formStatus === "PENDING"}
+                className="bg-yellow-300 w-32 h-10 rounded-lg flex justify-center items-center disabled:bg-gray-200 disabled:cursor-not-allowed"
+                disabled={formStatus === "SUBMITTING" || selectedPlan === null}
               >
                 {formStatus === "SUBMITTING" ? (
                   <AiOutlineLoading3Quarters className="animate-spin fill-white text-2xl" />
@@ -209,11 +220,6 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                   <p>Send</p>
                 )}
               </button>
-              {formStatus === "INVALID" && (
-                <ul className="text-red-500">
-                  <li>*The name field is required</li>
-                </ul>
-              )}
             </form>
           </div>
         </div>

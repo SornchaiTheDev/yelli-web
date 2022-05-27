@@ -15,14 +15,21 @@ const Card = ({ contactRef, name, tools, hours, selectPlan }: CardProps) => {
   const { width } = useWindow();
   const handleOnPricingClick = () => {
     const isMobile = width < 728;
-    selectPlan({ name, tools, hours });
+    selectPlan({
+      name,
+      tools,
+      hours,
+      price: (tools * 5000 + hours * 2000)
+        .toString()
+        .replace(/(\d)(?=(\d{3})+\b)/g, "$1,"),
+    });
     contactRef.current?.scrollIntoView({
       behavior: "smooth",
       block: isMobile ? "nearest" : "center",
     });
   };
   return (
-    <div className="bg-white border-2 w-full rounded-lg p-4 shadow-lg h-[50vh] flex flex-col gap-4">
+    <div className="bg-white border-2 w-3/4 md:w-full rounded-lg p-4 shadow-lg h-[55vh] flex flex-col gap-4">
       <span className="inline-flex gap-2 items-center justify-between w-full">
         <h2 className="text-2xl font-semibold">{name}</h2>
         <h2 className="font-bold text-xl">
@@ -50,7 +57,7 @@ const Card = ({ contactRef, name, tools, hours, selectPlan }: CardProps) => {
       </div>
       <button
         onClick={handleOnPricingClick}
-        className="px-8 py-4 bg-yellow-300 rounded-full font-bold flex-1 hover:brightness-95 duration-200"
+        className="px-8 py-4 bg-yellow-300 rounded-lg font-bold flex-1 hover:brightness-95 duration-200"
       >
         Contact
       </button>
