@@ -3,7 +3,7 @@ import { PhotoI } from "@decor/Photo";
 
 interface ImageGridI {
   className: string;
-  imgset: PhotoI[];
+  imgset: { src: string }[];
 }
 const ImageGrid = ({ imgset, className }: ImageGridI) => {
   return (
