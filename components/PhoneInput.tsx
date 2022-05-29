@@ -7,27 +7,25 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 type codeType = { dial_code: number; code: string };
 interface PhoneInputI {
-  onValueChange: (value: string) => void;
+  value: string;
+  onValueChange: (dial_code: number, phone_number: string) => void;
 }
-function PhoneInput({ onValueChange }: PhoneInputI) {
+function PhoneInput({ value, onValueChange }: PhoneInputI) {
   const [country, setCountry] = useState<codeType>({
     dial_code: 66,
     code: "TH",
   });
   const ref = useRef<HTMLDivElement | null>(null);
   const isOutside = useClickOutSide(ref, true);
-  const [phone, setPhone] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const onChange = (e: FormEvent<HTMLInputElement>) => {
     const input = e.currentTarget.value.replace(/\D/g, "");
 
-    setPhone(input);
-
     if (input.length === 0) {
-      return onValueChange("");
+      return onValueChange(country.dial_code, "");
     }
 
-    onValueChange(`+${country.dial_code}${input}`);
+    onValueChange(country.dial_code, input);
   };
 
   const handleSelectCode = (code: string, dial_code: number) => {
@@ -68,7 +66,7 @@ function PhoneInput({ onValueChange }: PhoneInputI) {
       <input
         maxLength={10}
         required
-        value={phone}
+        value={value}
         onChange={onChange}
         type="text"
         placeholder="966353408"

@@ -34,7 +34,8 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
     const [form, setForm] = useState<FormI>({
       name: "",
       email: "",
-      phone: "",
+      dial_code: 1,
+      phone_number: "",
       message: "",
     });
 
@@ -59,6 +60,13 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
           );
         }
         setFormStatus("INITIAL");
+        setForm({
+          name: "",
+          email: "",
+          phone_number: "",
+          message: "",
+        });
+        cancelPlan();
       });
     };
 
@@ -74,7 +82,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
     useEffect(() => {
       let valid = true;
       for (let value in form) {
-        if (value !== "message" && value !== "phone") {
+        if (value !== "message" && value !== "phone_number") {
           if (form[value as keyof FormI] === "") {
             valid = false;
             break;
@@ -82,7 +90,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
         }
       }
       if (
-        (valid && form.phone.replace(/\+\w{2}/, "").length < 9) ||
+        (valid && form.phone_number.replace(/\+\w{2}/, "").length < 9) ||
         selectedPlan === null
       ) {
         valid = false;
@@ -131,6 +139,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                     onChange={(e) =>
                       setForm({ ...form, [key]: e.target.value })
                     }
+                    value={form[key as keyof FormI]}
                     type={type}
                     placeholder={placeholder}
                     className="rounded-lg"
@@ -142,8 +151,9 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                 Phone <span className="text-red-500">*</span>
               </label>
               <PhoneInput
-                onValueChange={(dial_code: string) =>
-                  setForm({ ...form, phone: dial_code })
+                value={form.phone_number}
+                onValueChange={(dial_code: number, phone_number: string) =>
+                  setForm({ ...form, dial_code, phone_number })
                 }
               />
 
