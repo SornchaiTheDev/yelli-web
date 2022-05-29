@@ -20,9 +20,13 @@ function PhoneInput({ onValueChange }: PhoneInputI) {
   const [isOpen, setIsOpen] = useState(false);
   const onChange = (e: FormEvent<HTMLInputElement>) => {
     const input = e.currentTarget.value.replace(/\D/g, "");
-    if (input.length <= 10) {
-      setPhone(input);
+
+    setPhone(input);
+
+    if (input.length === 0) {
+      return onValueChange("");
     }
+
     onValueChange(`+${country.dial_code}${input}`);
   };
 

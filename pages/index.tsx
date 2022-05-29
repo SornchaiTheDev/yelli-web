@@ -5,7 +5,7 @@ import Features from "@components/Landing/Features";
 import Plans from "@components/Landing/Plans";
 import Contact from "@components/Landing/Contact";
 import Footer from "@components/Landing/Footer";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import Script from "next/script";
 import { PlanProps } from "@decor/Plan";
 

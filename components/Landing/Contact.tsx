@@ -1,47 +1,13 @@
-import { BsTelephone, BsMailbox } from "react-icons/bs";
+import { FormEvent, forwardRef, useState, useEffect, useCallback } from "react";
+import { BsTelephone } from "react-icons/bs";
 import { AiOutlineMail, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import { FormEvent, forwardRef, useState, useEffect } from "react";
 import axios from "axios";
 import emailjs from "emailjs-com";
 import PhoneInput from "@components/PhoneInput";
-import { BiTime } from "react-icons/bi";
-import { PlanProps } from "@decor/Plan";
-
-type SelectedPlanCardProps = {
-  plan: PlanProps;
-};
-const SelectedPlanCard = ({ plan }: SelectedPlanCardProps) => {
-  const { name, hours, tools } = plan;
-  return (
-    <div className="bg-white border-2 w-full rounded-lg p-4 h-fit flex flex-col gap-4">
-      <span className="inline-flex gap-2 items-center justify-between w-full">
-        <h2 className="text-2xl font-semibold">{name}</h2>
-        <h2 className="font-bold text-xl">
-          {(tools * 5000 + hours * 2000)
-            .toString()
-            .replace(/(\d)(?=(\d{3})+\b)/g, "$1,")}{" "}
-          บาท
-        </h2>
-      </span>
-
-      <hr />
-      <div className="flex flex-col gap-2 h-full">
-        <div className="flex flex-col gap-4">
-          <span className="inline-flex gap-2 items-center justify-between w-full">
-            <h2 className="text-xl">ค่าอุปกรณ์</h2>
-            <h2>{tools} ชุด</h2>
-          </span>
-          <p>(กล้อง DSLR , ปริ้นท์เตอร์ , ชุดไฟสตูดิโอ , พร็อพในงาน )</p>
-          <div className="inline-flex items-center gap-2">
-            <BiTime />
-            <h2>{hours} ชั่วโมง</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import SelectedPlanCard from "@components/SelectedPlanCard";
+import { ContactProps } from "@decor/Contact";
+import { FormI } from "@decor/Form";
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
@@ -62,21 +28,9 @@ const contact = [
   },
 ];
 
-interface ContactProps {
-  selectedPlan: PlanProps;
-  cancelPlan: () => void;
-}
-
-interface FormI {
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-}
-
 const Contact = forwardRef<HTMLDivElement, ContactProps>(
   ({ selectedPlan, cancelPlan }, ref) => {
-    const [formStatus, setFormStatus] = useState<string>("INITIAL");
+    const [formStatus, setFormStatus] = useState<string>("DISABLED");
     const [form, setForm] = useState<FormI>({
       name: "",
       email: "",
@@ -104,7 +58,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
             "r5JxDrTgFL6MEWyG_"
           );
         }
-        setFormStatus("SUCCESS");
+        setFormStatus("INITIAL");
       });
     };
 
@@ -118,14 +72,25 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
     };
 
     useEffect(() => {
+      let valid = true;
       for (let value in form) {
-        if (value !== "message" && form[value as keyof FormI] === "") {
-          setFormStatus("DISABLED");
-        } else {
-          setFormStatus("INITIAL");
+        if (value !== "message" && value !== "phone") {
+          if (form[value as keyof FormI] === "") {
+            valid = false;
+            break;
+          }
         }
       }
-    }, [form]);
+      if (
+        (valid && form.phone.replace(/\+\w{2}/, "").length < 9) ||
+        selectedPlan === null
+      ) {
+        valid = false;
+      }
+
+      if (valid) return setFormStatus("INITIAL");
+      setFormStatus("DISABLED");
+    }, [form, selectedPlan]);
 
     return (
       <div
@@ -204,11 +169,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
 
               <button
                 className="bg-yellow-300 w-32 h-10 rounded-lg flex justify-center items-center disabled:bg-gray-200 disabled:cursor-not-allowed"
-                disabled={
-                  formStatus === "SUBMITTING" ||
-                  formStatus === "DISABLED" ||
-                  selectedPlan === null
-                }
+                disabled={formStatus === "DISABLED"}
               >
                 {formStatus === "SUBMITTING" ? (
                   <AiOutlineLoading3Quarters className="animate-spin fill-white text-2xl" />

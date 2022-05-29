@@ -35,7 +35,11 @@ function Navbar({ active }: NavbarProps) {
         <div className="px-2 py-2 flex justify-between items-center relative w-full">
           <Link href="/" passHref>
             <div className="relative w-12 h-12">
-              <Image src="/logo.png" layout="fill" />
+              <Image
+                src="/logo.png"
+                layout="fill"
+                alt="Phuket Instant Print logo"
+              />
             </div>
           </Link>
           <Hamburger isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />

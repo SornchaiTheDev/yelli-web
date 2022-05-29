@@ -1,14 +1,14 @@
 import React from "react";
 import Navbar from "@components/common/Navbar";
 import Album from "@components/Album";
-import { EventProps , Event } from "@decor/Event";
+import { EventProps, Event } from "@decor/Event";
 
 function Index({ events }: EventProps) {
   const _events = JSON.parse(events) as Event[];
 
   return (
     <div>
-      <title>Goodshot PhotoBooth - Gallery</title>
+      <title>Phuket Instant Print - Gallery</title>
       <Navbar active="Gallery" />
       <div className="mt-24 w-full flex flex-col items-center">
         <div className="container mx-auto">

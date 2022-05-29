@@ -25,9 +25,9 @@ const Plans = forwardRef<HTMLDivElement, PlansProps>(
         <div className="flex justify-center flex-wrap md:flex-nowrap w-full gap-4 h-full mt-10 px-2">
           {plans.map(({ name, hours, tools }, i) => (
             <Card
-              name={name}
-              hours={hours}
-              tools={tools}
+              plan_name={name}
+              plan_hours={hours}
+              plan_tools={tools}
               key={i}
               contactRef={contactRef}
               selectPlan={planSelected}

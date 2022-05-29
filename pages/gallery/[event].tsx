@@ -44,7 +44,7 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
 
   return (
     <>
-      <title>Goodshot PhotoBooth - Gallery</title>
+      <title>Phuket Instant Print - Gallery</title>
       {previewImg.src !== null && (
         <BigImage
           src={previewImg.src!}

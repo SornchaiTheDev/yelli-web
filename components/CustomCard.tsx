@@ -10,15 +10,15 @@ type CustomCardProps = {
 
 const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
   const { width } = useWindow();
-  const [tools, setTools] = useState<number>(1);
-  const [hours, setHours] = useState<number>(1);
+  const [plan_tools, setTools] = useState<number>(1);
+  const [plan_hours, setHours] = useState<number>(1);
   const handleOnPricingClick = () => {
     const isMobile = width < 728;
     selectPlan({
-      name: "กำหนดเอง",
-      tools,
-      hours,
-      price: (tools * 5000 + hours * 2000)
+      plan_name: "กำหนดเอง",
+      plan_tools,
+      plan_hours,
+      plan_price: (plan_tools * 5000 + plan_hours * 2000)
         .toString()
         .replace(/(\d)(?=(\d{3})+\b)/g, "$1,"),
     });
@@ -42,7 +42,7 @@ const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
         <span className="inline-flex gap-2 items-center justify-between w-full">
           <h2 className="text-2xl font-semibold">กำหนดเอง</h2>
           <h2 className="font-bold text-xl">
-            {(tools * 5000 + hours * 2000)
+            {(plan_tools * 5000 + plan_hours * 2000)
               .toString()
               .replace(/(\d)(?=(\d{3})+\b)/g, "$1,")}{" "}
             บาท
@@ -54,14 +54,14 @@ const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
             <span className="flex flex-col gap-2">
               <span className="inline-flex gap-2 items-center justify-between w-full">
                 <h2 className="text-xl">ค่าอุปกรณ์</h2>
-                <h2>{tools} ชุด</h2>
+                <h2>{plan_tools} ชุด</h2>
               </span>
               <p>( ช่างภาพ , กล้อง DSLR , ปริ้นท์เตอร์ , ชุดไฟสตูดิโอ )</p>
 
               <input
                 type="range"
                 className="appearance-none overflow-hidden bg-gray-200 rounded-full h-5"
-                value={tools}
+                value={plan_tools}
                 min={1}
                 max={3}
                 onChange={handleOnToolsChange}
@@ -69,13 +69,13 @@ const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
             </span>
             <div className="inline-flex items-center gap-2 mt-10">
               <BiTime />
-              <h2>จำนวน {hours} ชั่วโมง</h2>
+              <h2>จำนวน {plan_hours} ชั่วโมง</h2>
             </div>
 
             <input
               type="range"
               className="appearance-none overflow-hidden bg-gray-200 rounded-full h-5"
-              value={hours}
+              value={plan_hours}
               min={1}
               max={5}
               onChange={handleOnHoursChange}
