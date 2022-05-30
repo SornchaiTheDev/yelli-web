@@ -31,6 +31,7 @@ const contact = [
 const Contact = forwardRef<HTMLDivElement, ContactProps>(
   ({ selectedPlan, cancelPlan }, ref) => {
     const [formStatus, setFormStatus] = useState<string>("DISABLED");
+    const [errorStatus, setErrorStatus] = useState<string[]>([]);
     const [form, setForm] = useState<FormI>({
       name: "",
       email: "",
@@ -79,25 +80,41 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
       cancelPlan();
     };
 
-    useEffect(() => {
-      let valid = true;
-      for (let value in form) {
-        if (value !== "message" && value !== "phone_number") {
-          if (form[value as keyof FormI] === "") {
-            valid = false;
-            break;
-          }
-        }
-      }
-      if (
-        (valid && form.phone_number.replace(/\+\w{2}/, "").length < 9) ||
-        selectedPlan === null
-      ) {
-        valid = false;
-      }
+    type ERROR_STATUS = "NAME_ERROR" | "EMAIL_ERROR" | "PHONE_ERROR";
 
-      if (valid) return setFormStatus("INITIAL");
-      setFormStatus("DISABLED");
+    useEffect(() => {
+      let _errorStatus: ERROR_STATUS[] = [];
+      if (selectedPlan) {
+        if (form.name === "") {
+          if (!_errorStatus.includes("NAME_ERROR")) {
+            _errorStatus.push("NAME_ERROR");
+          }
+        } else {
+          _errorStatus = _errorStatus.filter((err) => err !== "NAME_ERROR");
+        }
+
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(form.email)) {
+          if (!_errorStatus.includes("EMAIL_ERROR"))
+            _errorStatus.push("EMAIL_ERROR");
+        } else {
+          _errorStatus = _errorStatus.filter((err) => err !== "EMAIL_ERROR");
+        }
+
+        if (form.phone_number.replace(/\+\w{2}/, "").length < 9) {
+          if (!_errorStatus.includes("PHONE_ERROR"))
+            _errorStatus.push("PHONE_ERROR");
+        } else {
+          _errorStatus = _errorStatus.filter((err) => err !== "PHONE_ERROR");
+        }
+
+        if (_errorStatus.length) {
+          setFormStatus("DISABLED");
+        } else {
+          setFormStatus("INITIAL");
+        }
+
+        setErrorStatus(_errorStatus);
+      }
     }, [form, selectedPlan]);
 
     return (
@@ -144,6 +161,9 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                     placeholder={placeholder}
                     className="rounded-lg"
                   />
+                  {errorStatus.find(
+                    (err) => err === `${key.toUpperCase()}_ERROR`
+                  ) && <span className="text-red-500">*Invalid {name}</span>}
                 </div>
               ))}
 
@@ -156,6 +176,9 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                   setForm({ ...form, dial_code, phone_number })
                 }
               />
+              {errorStatus.includes("PHONE_ERROR") && (
+                <span className="text-red-500">*Invalid Phone Number</span>
+              )}
 
               {selectedPlan !== null && (
                 <>
