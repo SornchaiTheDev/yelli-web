@@ -54,7 +54,7 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
       )}
 
       <div>
-        <Navbar active="Gallery" />
+        <Navbar activeSection="Gallery" />
         <div className="mt-24 w-full flex flex-col items-center">
           <div className="container mx-auto">
             <BackToGallery />

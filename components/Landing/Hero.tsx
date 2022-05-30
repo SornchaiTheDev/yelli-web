@@ -4,10 +4,11 @@ import useWindow from "../../hooks/useWindow";
 import Image from "next/image";
 import Scroll from "./Scroll";
 import Typewriter from "typewriter-effect";
+import { forwardRef } from "react";
 type HeroProps = {
   plansRef: React.RefObject<HTMLDivElement>;
 };
-const Hero = ({ plansRef }: HeroProps) => {
+const Hero = forwardRef<HTMLDivElement, HeroProps>(({ plansRef }, ref) => {
   const { width } = useWindow();
   const scrollToPlans = () => {
     const isMobile = width < 728;
@@ -19,7 +20,7 @@ const Hero = ({ plansRef }: HeroProps) => {
   const router = useRouter();
   return (
     <>
-      <div className="mt-32 md:mt-48 gap-20">
+      <div className="mt-32 md:mt-48 gap-20" ref={ref}>
         {/* <div className="grid grid-cols-1 md:grid-cols-2 h-full mt-48"> */}
         <div className="h-full px-10 flex flex-col justify-center items-center">
           <h2 className="text-5xl font-bold text-center">
@@ -65,6 +66,6 @@ const Hero = ({ plansRef }: HeroProps) => {
       <Scroll />
     </>
   );
-};
+});
 
 export default Hero;

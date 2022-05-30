@@ -9,7 +9,7 @@ function Index({ events }: EventProps) {
   return (
     <div>
       <title>Phuket Instant Print - Gallery</title>
-      <Navbar active="Gallery" />
+      <Navbar activeSection="Gallery" />
       <div className="mt-24 w-full flex flex-col items-center">
         <div className="container mx-auto">
           <h2 className="text-center text-3xl font-semibold my-14">Gallery</h2>
