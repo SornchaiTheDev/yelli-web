@@ -68,4 +68,6 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ plansRef }, ref) => {
   );
 });
 
+Hero.displayName = "Hero";
+
 export default Hero;

@@ -22,7 +22,7 @@ function Index() {
 
   useEffect(() => {
     setActiveSection(router.asPath.split("/")[1].substring(1));
-  }, []);
+  }, [router.asPath]);
 
   const handleCancelPlan = () => {
     setSelectedPlan(null);
