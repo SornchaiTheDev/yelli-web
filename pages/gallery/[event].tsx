@@ -11,9 +11,11 @@ import { format } from "date-fns";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import useFetchPhoto from "@hooks/useFetchPhoto";
 import { useIntl } from "react-intl";
+import { useRouter } from "next/router";
 
 function Event({ photos, name, date, amount, id }: InEventProps) {
   const intl = useIntl();
+  const { locale } = useRouter();
   const [photosAlbum, setPhotosAlbum] = useState<PhotoI[]>(photos);
   const [previewImg, setPreviewImg] = useState<{ src: string | null }>({
     src: null,
@@ -46,7 +48,9 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
 
   return (
     <>
-      <title>Phuket Instant Print - {intl.formatMessage({ id: "gallery.title" })}</title>
+      <title>
+        Phuket Instant Print - Gallery
+      </title>
       {previewImg.src !== null && (
         <BigImage
           src={previewImg.src!}
@@ -70,7 +74,10 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
                 <p>•</p>
                 <span className="inline-flex items-center gap-1">
                   <AiOutlineFileImage />
-                  <p>{amount} {intl.formatMessage({ id: "gallery.photos" })}</p>
+                  <p>
+                    {amount} {intl.formatMessage({ id: "gallery.photos" })}
+                    {locale === "en" && amount > 1 && "s"}
+                  </p>
                 </span>
               </div>
             </div>

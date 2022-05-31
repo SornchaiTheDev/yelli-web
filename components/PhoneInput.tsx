@@ -29,6 +29,7 @@ function PhoneInput({ value, onValueChange }: PhoneInputI) {
   };
 
   const handleSelectCode = (code: string, dial_code: number) => {
+    onValueChange(dial_code, value);
     setCountry({ code, dial_code });
     setIsOpen(false);
   };

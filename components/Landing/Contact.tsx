@@ -32,6 +32,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
         key: "name",
         placeholder: "Dylan Serif",
         type: "text",
+        error: intl.formatMessage({ id: "contact.error.name" }),
         required: true,
       },
       {
@@ -39,6 +40,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
         key: "email",
         placeholder: "Dylan@gmail.com",
         type: "email",
+        error: intl.formatMessage({ id: "contact.error.email" }),
         required: true,
       },
     ];
@@ -70,6 +72,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
           phone_number: "",
           message: "",
         });
+        setErrorStatus([]);
         cancelPlan();
       });
     };
@@ -80,6 +83,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
 
     const handleCancelPlan = (e: FormEvent<HTMLButtonElement>) => {
       e.preventDefault();
+      setErrorStatus([]);
       cancelPlan();
     };
 
@@ -153,30 +157,28 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
               </ul>
             )}
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-              {contact.map(({ name, placeholder, type, required, key }) => (
-                <div key={name} className="flex flex-col gap-4">
-                  <label>
-                    {name} <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    required={required}
-                    onChange={(e) =>
-                      setForm({ ...form, [key]: e.target.value })
-                    }
-                    value={form[key as keyof FormI]}
-                    type={type}
-                    placeholder={placeholder}
-                    className="rounded-lg"
-                  />
-                  {errorStatus.find(
-                    (err) => err === `${key.toUpperCase()}_ERROR`
-                  ) && (
-                    <span className="text-red-500">
-                      *{intl.formatMessage({ id: "contact.error.form" })} {name}
-                    </span>
-                  )}
-                </div>
-              ))}
+              {contact.map(
+                ({ name, placeholder, type, required, key, error }) => (
+                  <div key={name} className="flex flex-col gap-4">
+                    <label>
+                      {name} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      required={required}
+                      onChange={(e) =>
+                        setForm({ ...form, [key]: e.target.value })
+                      }
+                      value={form[key as keyof FormI]}
+                      type={type}
+                      placeholder={placeholder}
+                      className="rounded-lg"
+                    />
+                    {errorStatus.find(
+                      (err) => err === `${key.toUpperCase()}_ERROR`
+                    ) && <span className="text-red-500">*{error}</span>}
+                  </div>
+                )
+              )}
 
               <label>
                 {intl.formatMessage({ id: "contact.form.phone" })}{" "}
@@ -184,9 +186,9 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
               </label>
               <PhoneInput
                 value={form.phone_number}
-                onValueChange={(dial_code: number, phone_number: string) =>
-                  setForm({ ...form, dial_code, phone_number })
-                }
+                onValueChange={(dial_code: number, phone_number: string) => {
+                  setForm({ ...form, dial_code, phone_number });
+                }}
               />
               {errorStatus.includes("PHONE_ERROR") && (
                 <span className="text-red-500">
@@ -210,10 +212,10 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
               )}
 
               <label>
-                {" "}
                 {intl.formatMessage({ id: "contact.form.message" })}
               </label>
               <textarea
+                value={form.message}
                 className="rounded-lg"
                 placeholder={intl.formatMessage({
                   id: "contact.form.message.placeholder",

@@ -84,6 +84,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
               if (home) {
                 return (
                   <li
+                    key={path}
                     onClick={() => home && scrollToSection!(id)}
                     className={
                       active === id
@@ -133,6 +134,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
             if (home) {
               return (
                 <li
+                  key={path}
                   onClick={() => home && scrollToSection!(id)}
                   className={
                     active === id
