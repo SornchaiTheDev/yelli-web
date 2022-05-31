@@ -9,8 +9,9 @@ type codeType = { dial_code: number; code: string };
 interface PhoneInputI {
   value: string;
   onValueChange: (dial_code: number, phone_number: string) => void;
+  error: boolean;
 }
-function PhoneInput({ value, onValueChange }: PhoneInputI) {
+function PhoneInput({ value, onValueChange, error }: PhoneInputI) {
   const [country, setCountry] = useState<codeType>({
     dial_code: 66,
     code: "TH",
@@ -71,7 +72,7 @@ function PhoneInput({ value, onValueChange }: PhoneInputI) {
         onChange={onChange}
         type="text"
         placeholder="966353408"
-        className="rounded-lg w-fit"
+        className={`rounded-lg w-fit ${error && "border-red-500"}`}
       />
     </div>
   );

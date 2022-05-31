@@ -47,6 +47,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
 
     const handleSubmit = (e: FormEvent) => {
       e.preventDefault();
+      if (formStatus === "DISABLED" || selectedPlan === null) return;
 
       window.grecaptcha.ready(async () => {
         setFormStatus("SUBMITTING");
@@ -85,6 +86,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
       e.preventDefault();
       setErrorStatus([]);
       cancelPlan();
+      setFormStatus("DISABLED");
     };
 
     type ERROR_STATUS = "NAME_ERROR" | "EMAIL_ERROR" | "PHONE_ERROR";
@@ -156,6 +158,18 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                 <li>*{intl.formatMessage({ id: "contact.error.plan" })}</li>
               </ul>
             )}
+            {selectedPlan !== null && (
+              <div className="my-4 flex flex-col">
+                <button
+                  className="inline-flex items-center gap-1 self-end bg-red-500 rounded-lg p-1 text-white my-4"
+                  onClick={handleCancelPlan}
+                >
+                  <IoClose />
+                  <p>{intl.formatMessage({ id: "contact.package.cancel" })}</p>
+                </button>
+                <SelectedPlanCard plan={selectedPlan} />
+              </div>
+            )}
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               {contact.map(
                 ({ name, placeholder, type, required, key, error }) => (
@@ -171,7 +185,11 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                       value={form[key as keyof FormI]}
                       type={type}
                       placeholder={placeholder}
-                      className="rounded-lg"
+                      className={`rounded-lg ${
+                        errorStatus.find(
+                          (err) => err === `${key.toUpperCase()}_ERROR`
+                        ) && "border-red-500"
+                      }`}
                     />
                     {errorStatus.find(
                       (err) => err === `${key.toUpperCase()}_ERROR`
@@ -185,6 +203,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                 <span className="text-red-500">*</span>
               </label>
               <PhoneInput
+                error={!!errorStatus.find((err) => err === "PHONE_ERROR")}
                 value={form.phone_number}
                 onValueChange={(dial_code: number, phone_number: string) => {
                   setForm({ ...form, dial_code, phone_number });
@@ -194,21 +213,6 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                 <span className="text-red-500">
                   *{intl.formatMessage({ id: "contact.error.phone" })}
                 </span>
-              )}
-
-              {selectedPlan !== null && (
-                <>
-                  <button
-                    className="inline-flex items-center gap-1 self-end bg-red-500 rounded-lg p-1 text-white"
-                    onClick={handleCancelPlan}
-                  >
-                    <IoClose />
-                    <p>
-                      {intl.formatMessage({ id: "contact.package.cancel" })}
-                    </p>
-                  </button>
-                  <SelectedPlanCard plan={selectedPlan} />
-                </>
               )}
 
               <label>
@@ -224,7 +228,11 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
               />
 
               <button
-                className="bg-yellow-300 w-32 h-10 rounded-lg flex justify-center items-center disabled:bg-gray-200 disabled:cursor-not-allowed"
+                className={`${
+                  formStatus === "DISABLED"
+                    ? "bg-gray-200 cursor-not-allowed"
+                    : "bg-yellow-300"
+                } w-32 h-10 rounded-lg flex justify-center items-center`}
                 disabled={formStatus === "DISABLED"}
               >
                 {formStatus === "SUBMITTING" ? (

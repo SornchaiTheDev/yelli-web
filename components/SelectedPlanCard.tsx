@@ -1,10 +1,12 @@
 import { PlanProps } from "@decor/Plan";
 import { BiTime } from "react-icons/bi";
+import { useIntl } from "react-intl";
 
 type SelectedPlanCardProps = {
   plan: PlanProps;
 };
 const SelectedPlanCard = ({ plan }: SelectedPlanCardProps) => {
+  const intl = useIntl();
   const { plan_name, plan_hours, plan_tools } = plan;
   return (
     <div className="bg-white border-2 w-full rounded-lg p-4 h-fit flex flex-col gap-4">
@@ -14,7 +16,7 @@ const SelectedPlanCard = ({ plan }: SelectedPlanCardProps) => {
           {(plan_tools * 5000 + plan_hours * 2000)
             .toString()
             .replace(/(\d)(?=(\d{3})+\b)/g, "$1,")}{" "}
-          บาท
+          {intl.formatMessage({ id: "plans.currency" })}
         </h2>
       </span>
 
@@ -22,13 +24,17 @@ const SelectedPlanCard = ({ plan }: SelectedPlanCardProps) => {
       <div className="flex flex-col gap-2 h-full">
         <div className="flex flex-col gap-4">
           <span className="inline-flex gap-2 items-center justify-between w-full">
-            <h2 className="text-xl">ค่าอุปกรณ์</h2>
-            <h2>{plan_tools} ชุด</h2>
+            <h2 className="text-xl">
+              {intl.formatMessage({ id: "plans.tools" })}
+            </h2>
+            <h2>
+              {plan_tools} {intl.formatMessage({ id: "plans.tools.unit" })}
+            </h2>
           </span>
-          <p>(กล้อง DSLR , ปริ้นท์เตอร์ , ชุดไฟสตูดิโอ , พร็อพในงาน )</p>
+          <p>{intl.formatMessage({ id: "plans.tools.description" })}</p>
           <div className="inline-flex items-center gap-2">
             <BiTime />
-            <h2>{plan_hours} ชั่วโมง</h2>
+            <h2>{intl.formatMessage({ id: "plans.hours.amount" })} {plan_hours} {intl.formatMessage({ id: "plans.hours.unit" })}</h2>
           </div>
         </div>
       </div>
