@@ -21,7 +21,9 @@ function Index() {
   const [activeSection, setActiveSection] = useState<string>("Home");
 
   useEffect(() => {
-    setActiveSection(router.asPath.split("/")[1].substring(1));
+    if (router.asPath.split("/")[1].substring(1).length) {
+      setActiveSection(router.asPath.split("/")[1].substring(1));
+    }
   }, [router.asPath]);
 
   const handleCancelPlan = () => {
