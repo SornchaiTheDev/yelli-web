@@ -5,11 +5,13 @@ import Image from "next/image";
 import Scroll from "./Scroll";
 import Typewriter from "typewriter-effect";
 import { forwardRef } from "react";
+import { useIntl } from "react-intl";
 type HeroProps = {
   plansRef: React.RefObject<HTMLDivElement>;
 };
 const Hero = forwardRef<HTMLDivElement, HeroProps>(({ plansRef }, ref) => {
   const { width } = useWindow();
+  const intl = useIntl();
   const scrollToPlans = () => {
     const isMobile = width < 728;
     plansRef.current?.scrollIntoView({
@@ -24,23 +26,21 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ plansRef }, ref) => {
         {/* <div className="grid grid-cols-1 md:grid-cols-2 h-full mt-48"> */}
         <div className="h-full px-10 flex flex-col justify-center items-center">
           <h2 className="text-5xl font-bold text-center">
-            เก็บความทรงจำของคุณให้อยู่ในรูปถ่าย
+            {intl.formatMessage({ id: "hero.title" })}
           </h2>
 
           <p className="max-w-lg mt-10 text-center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
-            iusto nostrum libero. Id, numquam totam unde reiciendis possimus
-            magnam quasi obcaecati
+            {intl.formatMessage({ id: "hero.body" })}
           </p>
           <div className="flex gap-2 justify-center my-10">
             <Button className="bg-yellow-300" onClick={scrollToPlans}>
-              View Plans
+            {intl.formatMessage({ id: "hero.viewplans" })}
             </Button>
             <Button
               className="bg-gray-200"
               onClick={() => router.push("/gallery")}
             >
-              Gallery
+              {intl.formatMessage({ id: "hero.gallery" })}
             </Button>
           </div>
           <div className="flex justify-center items-center gap-20 flex-wrap">

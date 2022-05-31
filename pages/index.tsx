@@ -31,19 +31,19 @@ function Index() {
   const scrollToSection = (section: string) => {
     setActiveSection(section);
     const isMobile = width < 728;
-    if (section === "Home") {
+    if (section === "home") {
       heroRef.current?.scrollIntoView({
         behavior: "smooth",
         block: isMobile ? "nearest" : "center",
       });
     }
-    if (section === "Plans") {
+    if (section === "plans") {
       plansRef.current?.scrollIntoView({
         behavior: "smooth",
         block: isMobile ? "nearest" : "center",
       });
     }
-    if (section === "Contact") {
+    if (section === "contact") {
       contactRef.current?.scrollIntoView({
         behavior: "smooth",
         block: isMobile ? "nearest" : "center",

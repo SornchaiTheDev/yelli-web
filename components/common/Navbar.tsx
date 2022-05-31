@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useIntl } from "react-intl";
 const Hamburger = ({
   isOpen,
   onClick,
@@ -22,17 +23,30 @@ interface NavbarProps {
   activeSection: string;
 }
 
-const NavPaths = [
-  { path: "/", name: "Home" },
-  { path: "/#plans", name: "Plans" },
-  { path: "/#contact", name: "Contact" },
-  { path: "/gallery", name: "Gallery" },
-];
-
 function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const active = activeSection.toLowerCase();
   const router = useRouter();
+  const intl = useIntl();
+
+  const NavPaths = [
+    { path: "/", id: "home", name: intl.formatMessage({ id: "navbar.home" }) },
+    {
+      path: "/#plans",
+      id: "plans",
+      name: intl.formatMessage({ id: "navbar.plans" }),
+    },
+    {
+      path: "/#contact",
+      id: "contact",
+      name: intl.formatMessage({ id: "navbar.contact" }),
+    },
+    {
+      path: "/gallery",
+      id: "gallery",
+      name: intl.formatMessage({ id: "navbar.gallery" }),
+    },
+  ];
 
   return (
     <nav className={`left-0 top-0 z-20 p-2 w-full bg-white fixed shadow-sm`}>
@@ -51,14 +65,13 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
         </div>
         {isOpen && (
           <ul className="flex md:hidden flex-col items-stretch px-2 space-y-3 cursor-pointer w-full z-20">
-            {NavPaths.map(({ path, name }) => {
-              const _name = name.toLowerCase();
-              if (name === "Gallery")
+            {NavPaths.map(({ path, name, id }) => {
+              if (id === "gallery")
                 return (
                   <Link href={path} key={path} passHref>
                     <li
                       className={
-                        active === _name
+                        active === id
                           ? "font-bold border-b-2 border-yellow-500"
                           : ""
                       }
@@ -71,9 +84,9 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
               if (home) {
                 return (
                   <li
-                    onClick={() => home && scrollToSection!(name)}
+                    onClick={() => home && scrollToSection!(id)}
                     className={
-                      active === _name
+                      active === id
                         ? "font-bold border-b-2 border-yellow-500"
                         : ""
                     }
@@ -87,7 +100,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
                 <Link href={path} key={path} passHref>
                   <li
                     className={
-                      active === _name
+                      active === id
                         ? "font-bold border-b-2 border-yellow-500"
                         : ""
                     }
@@ -100,15 +113,14 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
           </ul>
         )}
 
-        <ul className="hidden md:flex items-stretch px-0 space-x-3 cursor-pointer w-fit z-20">
-          {NavPaths.map(({ path, name }) => {
-            const _name = name.toLowerCase();
-            if (name === "Gallery")
+        <ul className="hidden md:flex justify-end items-stretch px-0 space-x-3 cursor-pointer w-full z-20">
+          {NavPaths.map(({ path, name, id }) => {
+            if (id === "gallery")
               return (
                 <Link href={path} key={path} passHref>
                   <li
                     className={
-                      active === _name
+                      active === id
                         ? "font-bold border-b-2 border-yellow-500"
                         : ""
                     }
@@ -121,9 +133,9 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
             if (home) {
               return (
                 <li
-                  onClick={() => home && scrollToSection!(name)}
+                  onClick={() => home && scrollToSection!(id)}
                   className={
-                    active === _name
+                    active === id
                       ? "font-bold border-b-2 border-yellow-500"
                       : ""
                   }
@@ -137,7 +149,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
               <Link href={path} key={path} passHref>
                 <li
                   className={
-                    active === _name
+                    active === id
                       ? "font-bold border-b-2 border-yellow-500"
                       : ""
                   }

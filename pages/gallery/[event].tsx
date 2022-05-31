@@ -10,8 +10,10 @@ import { InEventProps } from "@decor/Event";
 import { format } from "date-fns";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 import useFetchPhoto from "@hooks/useFetchPhoto";
+import { useIntl } from "react-intl";
 
 function Event({ photos, name, date, amount, id }: InEventProps) {
+  const intl = useIntl();
   const [photosAlbum, setPhotosAlbum] = useState<PhotoI[]>(photos);
   const [previewImg, setPreviewImg] = useState<{ src: string | null }>({
     src: null,
@@ -44,7 +46,7 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
 
   return (
     <>
-      <title>Phuket Instant Print - Gallery</title>
+      <title>Phuket Instant Print - {intl.formatMessage({ id: "gallery.title" })}</title>
       {previewImg.src !== null && (
         <BigImage
           src={previewImg.src!}
@@ -68,7 +70,7 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
                 <p>•</p>
                 <span className="inline-flex items-center gap-1">
                   <AiOutlineFileImage />
-                  <p>{amount} Photos</p>
+                  <p>{amount} {intl.formatMessage({ id: "gallery.photos" })}</p>
                 </span>
               </div>
             </div>

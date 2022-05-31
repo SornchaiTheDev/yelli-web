@@ -2,17 +2,23 @@ import React from "react";
 import Navbar from "@components/common/Navbar";
 import Album from "@components/Album";
 import { EventProps, Event } from "@decor/Event";
+import { useIntl } from "react-intl";
 
 function Index({ events }: EventProps) {
   const _events = JSON.parse(events) as Event[];
+  const intl = useIntl();
 
   return (
     <div>
-      <title>Phuket Instant Print - Gallery</title>
+      <title>
+        Phuket Instant Print - {intl.formatMessage({ id: "gallery.title" })}
+      </title>
       <Navbar activeSection="Gallery" />
       <div className="mt-24 w-full flex flex-col items-center">
         <div className="container mx-auto">
-          <h2 className="text-center text-3xl font-semibold my-14">Gallery</h2>
+          <h2 className="text-center text-3xl font-semibold my-14">
+            {intl.formatMessage({ id: "gallery.title" })}
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 p-4">
             {_events.map(({ name, amount, imgset, id }) => (
               <Album

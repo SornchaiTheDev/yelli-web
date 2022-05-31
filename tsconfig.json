@@ -22,7 +22,8 @@
       "@decor/*": ["./@types/*"],
       "@lottie/*": ["./assets/lottie/*"],
       "@utils/*": ["./utils/*"],
-      "@firebase/*": ["./firebase/*"]
+      "@firebase/*": ["./firebase/*"],
+      "@locale/*": ["./locale/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

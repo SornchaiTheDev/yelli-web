@@ -2,17 +2,12 @@ import Album from "@components/Album";
 import React from "react";
 import { BsFillBrushFill } from "react-icons/bs";
 import ImageGrid from "./ImageGrid";
+import { useIntl } from "react-intl";
 interface FeatureProps {
   icon: any;
   heading: string;
   body: string;
 }
-
-const features = [
-  { heading: "Drawing", body: "You can draw anything on the screen" },
-  { heading: "Sticker", body: "You can draw anything on the screen" },
-  { heading: "Instant Print", body: "You can draw anything on the screen" },
-];
 
 const Feature = ({ icon, heading, body }: FeatureProps) => {
   return (
@@ -29,8 +24,23 @@ const Feature = ({ icon, heading, body }: FeatureProps) => {
 };
 
 function Features() {
+  const intl = useIntl();
+  const features = [
+    {
+      heading: intl.formatMessage({ id: "feature.drawing.title" }),
+      body: intl.formatMessage({ id: "feature.drawing.body" }),
+    },
+    {
+      heading: intl.formatMessage({ id: "feature.sticker.title" }),
+      body: intl.formatMessage({ id: "feature.sticker.body" }),
+    },
+    {
+      heading: intl.formatMessage({ id: "feature.print.title" }),
+      body: intl.formatMessage({ id: "feature.print.body" }),
+    },
+  ];
   return (
-    <div className="flex flex-wrap md:flex-nowrap gap-4 my-14 p-6 w-full">
+    <div className="flex flex-wrap md:flex-nowrap gap-4 my-14 p-6 w-10/12">
       <ImageGrid
         className="flex-1"
         imgset={[

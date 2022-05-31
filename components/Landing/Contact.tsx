@@ -8,28 +8,14 @@ import PhoneInput from "@components/PhoneInput";
 import SelectedPlanCard from "@components/SelectedPlanCard";
 import { ContactProps } from "@decor/Contact";
 import { FormI } from "@decor/Form";
+import { useIntl } from "react-intl";
+import { intlFormat } from "date-fns";
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-const contact = [
-  {
-    name: "Name",
-    key: "name",
-    placeholder: "Dylan Serif",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "Email",
-    key: "email",
-    placeholder: "Dylan@gmail.com",
-    type: "email",
-    required: true,
-  },
-];
-
 const Contact = forwardRef<HTMLDivElement, ContactProps>(
   ({ selectedPlan, cancelPlan }, ref) => {
+    const intl = useIntl();
     const [formStatus, setFormStatus] = useState<string>("DISABLED");
     const [errorStatus, setErrorStatus] = useState<string[]>([]);
     const [form, setForm] = useState<FormI>({
@@ -39,6 +25,23 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
       phone_number: "",
       message: "",
     });
+
+    const contact = [
+      {
+        name: intl.formatMessage({ id: "contact.form.name" }),
+        key: "name",
+        placeholder: "Dylan Serif",
+        type: "text",
+        required: true,
+      },
+      {
+        name: intl.formatMessage({ id: "contact.form.email" }),
+        key: "email",
+        placeholder: "Dylan@gmail.com",
+        type: "email",
+        required: true,
+      },
+    ];
 
     const handleSubmit = (e: FormEvent) => {
       e.preventDefault();
@@ -123,11 +126,15 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
         id="contact"
         className="flex flex-col items-center my-2 w-full p-4"
       >
-        <h2 className="text-2xl font-bold my-10">Contact</h2>
+        <h2 className="text-2xl font-bold my-10">
+          {intl.formatMessage({ id: "contact.title" })}
+        </h2>
         <div className="grid grid-cols-6 w-full rounded-lg overflow-hidden max-w-4xl drop-shadow-md">
           <div className="col-span-6 md:col-span-2 bg-yellow-300 w-full h-full flex flex-col p-6">
-            <h2 className="text-2xl font-semibold">Contact Information</h2>
-            <p>Fill up the form and we will get back to you in a few hours</p>
+            <h2 className="text-2xl font-semibold">
+              {intl.formatMessage({ id: "contact.information" })}
+            </h2>
+            <p>{intl.formatMessage({ id: "contact.description" })}</p>
             <div className="mt-4 flex flex-col gap-2">
               <div className="inline-flex items-center gap-4">
                 <BsTelephone />
@@ -142,7 +149,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
           <div className="col-span-6 md:col-span-4 bg-white w-full h-full flex flex-col p-4">
             {selectedPlan === null && (
               <ul className="text-red-500 my-2">
-                <li>*Please Select Plan First</li>
+                <li>*{intl.formatMessage({ id: "contact.error.plan" })}</li>
               </ul>
             )}
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -163,12 +170,17 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                   />
                   {errorStatus.find(
                     (err) => err === `${key.toUpperCase()}_ERROR`
-                  ) && <span className="text-red-500">*Invalid {name}</span>}
+                  ) && (
+                    <span className="text-red-500">
+                      *{intl.formatMessage({ id: "contact.error.form" })} {name}
+                    </span>
+                  )}
                 </div>
               ))}
 
               <label>
-                Phone <span className="text-red-500">*</span>
+                {intl.formatMessage({ id: "contact.form.phone" })}{" "}
+                <span className="text-red-500">*</span>
               </label>
               <PhoneInput
                 value={form.phone_number}
@@ -177,7 +189,9 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                 }
               />
               {errorStatus.includes("PHONE_ERROR") && (
-                <span className="text-red-500">*Invalid Phone Number</span>
+                <span className="text-red-500">
+                  *{intl.formatMessage({ id: "contact.error.phone" })}
+                </span>
               )}
 
               {selectedPlan !== null && (
@@ -187,16 +201,23 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                     onClick={handleCancelPlan}
                   >
                     <IoClose />
-                    <p>ยกเลิกแพ็คเกจ</p>
+                    <p>
+                      {intl.formatMessage({ id: "contact.package.cancel" })}
+                    </p>
                   </button>
                   <SelectedPlanCard plan={selectedPlan} />
                 </>
               )}
 
-              <label>Message (optional)</label>
+              <label>
+                {" "}
+                {intl.formatMessage({ id: "contact.form.message" })}
+              </label>
               <textarea
                 className="rounded-lg"
-                placeholder="Message to us"
+                placeholder={intl.formatMessage({
+                  id: "contact.form.message.placeholder",
+                })}
                 onChange={handleMessageChange}
               />
 
@@ -207,7 +228,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                 {formStatus === "SUBMITTING" ? (
                   <AiOutlineLoading3Quarters className="animate-spin fill-white text-2xl" />
                 ) : (
-                  <p>Send</p>
+                  <p>{intl.formatMessage({ id: "contact.form.send" })}</p>
                 )}
               </button>
             </form>

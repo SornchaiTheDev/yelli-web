@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PlanProps } from "@decor/Plan";
 import useWindow from "@hooks/useWindow";
 import { BiTime } from "react-icons/bi";
+import { useIntl } from "react-intl";
 
 type CustomCardProps = {
   contactRef: React.RefObject<HTMLDivElement>;
@@ -10,12 +11,13 @@ type CustomCardProps = {
 
 const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
   const { width } = useWindow();
+  const intl = useIntl();
   const [plan_tools, setTools] = useState<number>(1);
   const [plan_hours, setHours] = useState<number>(1);
   const handleOnPricingClick = () => {
     const isMobile = width < 728;
     selectPlan({
-      plan_name: "กำหนดเอง",
+      plan_name: intl.formatMessage({ id: "plans.custom.title" }),
       plan_tools,
       plan_hours,
       plan_price: (plan_tools * 5000 + plan_hours * 2000)
@@ -40,12 +42,14 @@ const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
     <>
       <div className="bg-white border-2 w-3/4 md:w-full rounded-lg p-4 shadow-lg h-[55vh] flex flex-col gap-4">
         <span className="inline-flex gap-2 items-center justify-between w-full">
-          <h2 className="text-2xl font-semibold">กำหนดเอง</h2>
+          <h2 className="text-2xl font-semibold">
+            {intl.formatMessage({ id: "plans.custom.title" })}
+          </h2>
           <h2 className="font-bold text-xl">
             {(plan_tools * 5000 + plan_hours * 2000)
               .toString()
               .replace(/(\d)(?=(\d{3})+\b)/g, "$1,")}{" "}
-            บาท
+            {intl.formatMessage({ id: "plans.currency" })}
           </h2>
         </span>
         <hr />
@@ -53,10 +57,12 @@ const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
           <div className="flex flex-col gap-4">
             <span className="flex flex-col gap-2">
               <span className="inline-flex gap-2 items-center justify-between w-full">
-                <h2 className="text-xl">ค่าอุปกรณ์</h2>
-                <h2>{plan_tools} ชุด</h2>
+                <h2 className="text-xl">
+                  {intl.formatMessage({ id: "plans.tools" })}
+                </h2>
+                <h2>{plan_tools} {intl.formatMessage({ id: "plans.tools.unit" })}</h2>
               </span>
-              <p>( ช่างภาพ , กล้อง DSLR , ปริ้นท์เตอร์ , ชุดไฟสตูดิโอ )</p>
+              <p>{intl.formatMessage({ id: "plans.tools.description" })}</p>
 
               <input
                 type="range"
@@ -69,7 +75,10 @@ const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
             </span>
             <div className="inline-flex items-center gap-2 mt-10">
               <BiTime />
-              <h2>จำนวน {plan_hours} ชั่วโมง</h2>
+              <h2>
+                {intl.formatMessage({ id: "plans.hours.amount" })} {plan_hours}{" "}
+                {intl.formatMessage({ id: "plans.hours.unit" })}
+              </h2>
             </div>
 
             <input
@@ -86,7 +95,7 @@ const CustomCard = ({ contactRef, selectPlan }: CustomCardProps) => {
           onClick={handleOnPricingClick}
           className="px-8 py-4 bg-yellow-300 rounded-lg font-bold flex-1 hover:brightness-95 duration-200"
         >
-          Contact
+          {intl.formatMessage({ id: "contact.title" })}
         </button>
       </div>
     </>

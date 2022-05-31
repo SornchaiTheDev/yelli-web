@@ -2,12 +2,7 @@ import { forwardRef } from "react";
 import { PlanProps } from "@decor/Plan";
 import CustomCard from "@components/CustomCard";
 import Card from "@components/PlanCard";
-
-const plans = [
-  { name: "แพ็คเกจ 1", tools: 1, hours: 4 },
-  { name: "แพ็คเกจ 2", tools: 2, hours: 4 },
-  { name: "แพ็คเกจ 3", tools: 3, hours: 4 },
-];
+import { useIntl } from "react-intl";
 
 type PlansProps = {
   contactRef: React.RefObject<HTMLDivElement>;
@@ -15,17 +10,39 @@ type PlansProps = {
 };
 const Plans = forwardRef<HTMLDivElement, PlansProps>(
   ({ contactRef, planSelected }, ref) => {
+    const intl = useIntl();
+
+    const plans = [
+      {
+        name: 1,
+        tools: 1,
+        hours: 4,
+      },
+      {
+        name: 2,
+        tools: 2,
+        hours: 4,
+      },
+      {
+        name: 3,
+        tools: 3,
+        hours: 4,
+      },
+    ];
+
     return (
       <div
         ref={ref}
         id="plans"
         className="my-14 flex flex-col justify-center items-center h-full"
       >
-        <h2 className="text-2xl font-semibold">Plans</h2>
+        <h2 className="text-2xl font-semibold">
+          {intl.formatMessage({ id: "plans.title" })}
+        </h2>
         <div className="flex justify-center flex-wrap md:flex-nowrap w-full gap-4 h-full mt-10 px-2">
           {plans.map(({ name, hours, tools }, i) => (
             <Card
-              plan_name={name}
+              plan_number={name}
               plan_hours={hours}
               plan_tools={tools}
               key={i}

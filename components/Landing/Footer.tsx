@@ -1,10 +1,11 @@
-import React from "react";
+import { useIntl } from "react-intl";
 
 function Footer() {
+  const intl = useIntl();
   return (
     <div className="w-full bg-yellow-200">
       <div className="flex flex-col items-center justify-center p-10 gap-2">
-        <p>Made with ❤️ for everyone</p>
+        <p>{intl.formatMessage({ id: "footer.madewithluv" })}</p>
         <h2 className="text-center">
           Copyright &copy; {new Date().getFullYear()} All Rights Reserved By{" "}
           <a
@@ -12,7 +13,7 @@ function Footer() {
             className="text-gray-900 font-bold"
             style={{ fontFamily: "Pacifico" }}
           >
-            GoodShot
+            Phuket Instant Print
           </a>
         </h2>
       </div>

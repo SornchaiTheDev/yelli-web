@@ -14,7 +14,7 @@ const ImageGrid = ({ imgset, className }: ImageGridI) => {
           .map((photo) => (
             <div
               key={photo.src}
-              className="relative rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer h-fit"
+              className="relative rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 h-fit"
             >
               {photo.src !== null && (
                 <Image
@@ -28,7 +28,7 @@ const ImageGrid = ({ imgset, className }: ImageGridI) => {
             </div>
           ))}
 
-        <div className="relative  rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 cursor-pointer h-fit">
+        <div className="relative  rounded-lg overflow-hidden bg-gray-50  aspect-w-3 aspect-h-2 h-fit">
           {imgset[imgset.length - 1].src !== null && (
             <Image
               alt="Features"
