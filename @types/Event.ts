@@ -10,7 +10,7 @@ export type InEventProps = {
 };
 
 export interface EventProps {
-  events: string;
+  fetch_events: string;
 }
 
 export interface Event {

@@ -1,18 +1,35 @@
-import React from "react";
 import Navbar from "@components/common/Navbar";
 import Album from "@components/Album";
 import { EventProps, Event } from "@decor/Event";
 import { useIntl } from "react-intl";
+import useFetchEvents from "@hooks/useFetchEvents";
+import { useState } from "react";
 
-function Index({ events }: EventProps) {
-  const _events = JSON.parse(events) as Event[];
+function Index({ fetch_events }: EventProps) {
+  const _events = JSON.parse(fetch_events) as Event[];
+  const [events, setEvent] = useState<Event[]>(_events);
   const intl = useIntl();
+
+  const { loading, hasNextPage, error, fetchEvent, setLastEvent } =
+    useFetchEvents(_events.length, _events[_events.length - 1]);
+
+  // init infinite scroll
+  const [sentryRef] = useInfiniteScroll({
+    loading,
+    hasNextPage,
+    disabled: error,
+    onLoadMore: () => {
+      fetchEvent().then((res) => {
+        setLastEvent(res[res.length - 1]);
+        setEvent([...events, ...res]);
+      });
+    },
+    rootMargin: "0px 0px 400px 0px",
+  });
 
   return (
     <div>
-      <title>
-        Phuket Instant Print - {intl.formatMessage({ id: "gallery.title" })}
-      </title>
+      <title>Phuket Instant Print - Gallery</title>
       <Navbar activeSection="Gallery" />
       <div className="mt-24 w-full flex flex-col items-center">
         <div className="container mx-auto">
@@ -20,7 +37,7 @@ function Index({ events }: EventProps) {
             {intl.formatMessage({ id: "gallery.title" })}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-14 p-4">
-            {_events.map(({ name, amount, imgset, id }) => (
+            {events.map(({ name, amount, imgset, id }) => (
               <Album
                 key={id}
                 name={name}
@@ -29,8 +46,14 @@ function Index({ events }: EventProps) {
                 id={id}
               />
             ))}
+            <div ref={sentryRef} />
           </div>
         </div>
+        {loading && hasNextPage && (
+          <div className="flex justify-center mt-18">
+            <AiOutlineLoading3Quarters className="animate-spin fill-yellow-500 text-2xl" />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -42,10 +65,12 @@ import { collection, query, limit, orderBy, getDocs } from "firebase/firestore";
 import { store } from "../../firebase";
 import { PhotoI } from "@decor/Photo";
 import { v4 as uuid } from "uuid";
+import useInfiniteScroll from "react-infinite-scroll-hook";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export const getServerSideProps = async () => {
   const eventRef = collection(store, "events");
-  const queryEvent = query(eventRef, limit(5), orderBy("date", "desc"));
+  const queryEvent = query(eventRef, limit(2), orderBy("date", "desc"));
   const getEvents = await getDocs(queryEvent);
   const events: Event[] = [];
 
@@ -84,7 +109,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      events: JSON.stringify(events),
+      fetch_events: JSON.stringify(events),
     },
   };
 };

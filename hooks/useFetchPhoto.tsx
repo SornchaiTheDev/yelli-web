@@ -8,7 +8,7 @@ import {
   getDoc,
   getDocs,
 } from "firebase/firestore";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { store } from "@firebase/index";
 import { PhotoI } from "@decor/Photo";
 
@@ -32,6 +32,7 @@ const useFetchPhoto = (id: string, clientAmount: number, lastPhoto: PhotoI) => {
   };
 
   const fetchPhoto = useCallback(async () => {
+    setLoading(true);
     const _photo: PhotoI[] = [];
     try {
       const lastPhotoSnap = await getDoc(
@@ -54,6 +55,7 @@ const useFetchPhoto = (id: string, clientAmount: number, lastPhoto: PhotoI) => {
       setError(!!err);
     }
     await checkEnd();
+    setLoading(false);
 
     return _photo;
   }, [_lastPhoto]);

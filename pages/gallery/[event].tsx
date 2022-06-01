@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "@components/common/Navbar";
-import { AiOutlineCalendar, AiOutlineFileImage } from "react-icons/ai";
+import { AiOutlineCalendar, AiOutlineFileImage, AiOutlineLoading3Quarters } from "react-icons/ai";
 import ImagePreview from "@components/Gallery/ImagePreview";
 import BackToGallery from "@components/Gallery/Buttons/BackToGallery";
 import BigImage from "@components/Gallery/BigImage";
@@ -94,6 +94,11 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
             </div>
           </div>
           <div ref={sentryRef} />
+          {loading && hasNextPage && (
+          <div className="flex justify-center mt-18">
+            <AiOutlineLoading3Quarters className="animate-spin fill-yellow-500 text-2xl" />
+          </div>
+        )}
         </div>
       </div>
     </>
