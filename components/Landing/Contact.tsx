@@ -135,7 +135,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
         <h2 className="text-2xl font-bold my-10">
           {intl.formatMessage({ id: "contact.title" })}
         </h2>
-        <div className="grid grid-cols-6 w-full rounded-lg overflow-hidden max-w-4xl drop-shadow-md">
+        <div className="grid grid-cols-6 w-full rounded-lg overflow-hidden drop-shadow-md">
           <div className="col-span-6 md:col-span-2 bg-yellow-300 w-full h-full flex flex-col p-6">
             <h2 className="text-2xl font-semibold">
               {intl.formatMessage({ id: "contact.information" })}

@@ -52,7 +52,7 @@ const Card = ({
       <div className="flex flex-col gap-2 h-full">
         <div className="flex flex-col gap-4">
           <div className="flex justify-between">
-            <h2>{intl.formatMessage({ id: "plans.tools" })}</h2>
+            <h2 className="text-xl">{intl.formatMessage({ id: "plans.tools" })}</h2>
             <h2>
               {plan_tools} {intl.formatMessage({ id: "plans.tools.unit" })}
             </h2>

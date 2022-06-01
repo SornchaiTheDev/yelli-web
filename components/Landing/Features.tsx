@@ -11,7 +11,7 @@ interface FeatureProps {
 
 const Feature = ({ icon, heading, body }: FeatureProps) => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 col-span-2">
       <div className="flex items-center gap-2 h-fit">
         <div className="w-12 h-12 rounded-lg bg-gray-200 shadow-sm flex justify-center items-center">
           {icon}
@@ -39,10 +39,10 @@ function Features() {
       body: intl.formatMessage({ id: "feature.print.body" }),
     },
   ];
+
   return (
-    <div className="flex flex-wrap md:flex-nowrap gap-4 my-14 p-6 w-10/12">
+    <div className="flex flex-col xl:flex-row gap-4 my-14 p-6 w-full">
       <ImageGrid
-        className="flex-1"
         imgset={[
           {
             src: "https://storage.googleapis.com/yelli-bebb3.appspot.com/assets/54090.jpg",
@@ -58,8 +58,7 @@ function Features() {
           },
         ]}
       />
-
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-10 md:gap-6 mt-4 md:mt-0">
         {features.map(({ heading, body }, i) => (
           <Feature
             key={i}
