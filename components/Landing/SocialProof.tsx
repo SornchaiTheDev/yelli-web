@@ -25,7 +25,10 @@ function SocialProof() {
             src: "https://cdn1.iconfinder.com/data/icons/social-media-2285/512/Colored_Facebook3_svg-256.png",
           },
         ].map(({ src }) => (
-          <div className="bg-white rounded-lg col-span-1 inline-flex justify-center py-4 grayscale shadow-sm">
+          <div
+            key={src}
+            className="bg-white rounded-lg col-span-1 inline-flex justify-center py-4 grayscale shadow-sm"
+          >
             <Image src={src} layout="fixed" width={64} height={64} />
           </div>
         ))}
