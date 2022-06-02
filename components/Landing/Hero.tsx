@@ -1,8 +1,6 @@
 import Button from "@components/Button";
 import { useRouter } from "next/router";
 import useWindow from "../../hooks/useWindow";
-import Image from "next/image";
-import Scroll from "./Scroll";
 import Typewriter from "typewriter-effect";
 import { forwardRef } from "react";
 import { useIntl } from "react-intl";

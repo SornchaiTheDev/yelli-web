@@ -11,6 +11,7 @@ import { PlanProps } from "@decor/Plan";
 import useWindow from "@hooks/useWindow";
 import { useRouter } from "next/router";
 import Scroll from "@components/Landing/Scroll";
+import SocialProof from "@components/Landing/SocialProof";
 
 function Index() {
   const router = useRouter();
@@ -56,7 +57,7 @@ function Index() {
 
   const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
   return (
-    <div className="bg-gray-100">
+    <div className="">
       <title>Phuket Instant Print</title>
       <Script
         src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
@@ -67,6 +68,7 @@ function Index() {
         scrollToSection={(section) => scrollToSection(section)}
       />
       <Hero plansRef={plansRef} ref={heroRef} />
+      <SocialProof />
       <Scroll />
       <div className="container mx-auto">
         <Features />
