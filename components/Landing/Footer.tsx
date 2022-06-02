@@ -7,10 +7,8 @@ function Footer() {
       <div className="flex flex-col items-center justify-center p-10 gap-2">
         <p>Made with ❤️ for everyone</p>
         <h2 className="text-center">
-          Copyright &copy; {new Date().getFullYear()} All Rights Reserved By{" "}
-          <a href="#" className="text-gray-900 font-bold">
-            Phuket Instant Print
-          </a>
+          Copyright &copy; {new Date().getFullYear()} All Rights Reserved By
+          Phuket Instant Print
         </h2>
       </div>
     </div>

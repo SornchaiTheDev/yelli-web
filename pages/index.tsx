@@ -10,6 +10,7 @@ import Script from "next/script";
 import { PlanProps } from "@decor/Plan";
 import useWindow from "@hooks/useWindow";
 import { useRouter } from "next/router";
+import Scroll from "@components/Landing/Scroll";
 
 function Index() {
   const router = useRouter();
@@ -55,18 +56,19 @@ function Index() {
 
   const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
   return (
-    <>
+    <div className="bg-gray-100">
       <title>Phuket Instant Print</title>
       <Script
         src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
       />
+      <Navbar
+        home
+        activeSection={activeSection}
+        scrollToSection={(section) => scrollToSection(section)}
+      />
+      <Hero plansRef={plansRef} ref={heroRef} />
+      <Scroll />
       <div className="container mx-auto">
-        <Navbar
-          home
-          activeSection={activeSection}
-          scrollToSection={(section) => scrollToSection(section)}
-        />
-        <Hero plansRef={plansRef} ref={heroRef} />
         <Features />
         <Plans
           ref={plansRef}
@@ -80,7 +82,7 @@ function Index() {
         />
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

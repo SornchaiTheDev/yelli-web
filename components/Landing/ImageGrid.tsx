@@ -8,7 +8,7 @@ interface ImageGridI {
 const ImageGrid = ({ imgset, className }: ImageGridI) => {
   return (
     <div
-      className={`grid grid-cols-2 gap-2 justify-items-stretch place-items-stretch w-full h-full ${className}`}
+      className={`grid grid-cols-2 gap-2 w-full h-full ${className}`}
     >
       {imgset
         .filter((_, index) => index < imgset.length - 1)

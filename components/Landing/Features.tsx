@@ -41,7 +41,7 @@ function Features() {
   ];
 
   return (
-    <div className="flex flex-col xl:flex-row gap-4 my-14 p-6 w-full">
+    <div className="flex flex-col lg:flex-row gap-4 my-14 p-6 w-full">
       <ImageGrid
         imgset={[
           {
