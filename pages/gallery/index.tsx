@@ -51,7 +51,7 @@ function Index({ fetch_events }: EventProps) {
         </div>
         {loading && hasNextPage && (
           <div className="flex justify-center mt-18">
-            <AiOutlineLoading3Quarters className="animate-spin fill-yellow-500 text-2xl" />
+            <AiOutlineLoading3Quarters className="animate-spin fill-blue-500 text-2xl" />
           </div>
         )}
       </div>

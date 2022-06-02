@@ -79,7 +79,7 @@ const Card = ({
       </div>
       <button
         onClick={handleOnPricingClick}
-        className="px-8 py-4 bg-yellow-300 rounded-lg font-bold flex-1 hover:brightness-95 duration-200"
+        className="px-8 py-4 bg-blue-300 rounded-lg font-bold flex-1 hover:brightness-95 duration-200"
       >
         {intl.formatMessage({ id: "contact.title" })}
       </button>

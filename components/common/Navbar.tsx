@@ -72,7 +72,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
                     <li
                       className={
                         active === id
-                          ? "font-bold border-b-2 border-yellow-500"
+                          ? "font-bold border-b-2 border-blue-500"
                           : ""
                       }
                     >
@@ -88,7 +88,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
                     onClick={() => home && scrollToSection!(id)}
                     className={
                       active === id
-                        ? "font-bold border-b-2 border-yellow-500"
+                        ? "font-bold border-b-2 border-blue-500"
                         : ""
                     }
                   >
@@ -102,7 +102,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
                   <li
                     className={
                       active === id
-                        ? "font-bold border-b-2 border-yellow-500"
+                        ? "font-bold border-b-2 border-blue-500"
                         : ""
                     }
                   >
@@ -122,7 +122,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
                   <li
                     className={
                       active === id
-                        ? "font-bold border-b-2 border-yellow-500"
+                        ? "font-bold border-b-2 border-blue-500"
                         : ""
                     }
                   >
@@ -138,7 +138,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
                   onClick={() => home && scrollToSection!(id)}
                   className={
                     active === id
-                      ? "font-bold border-b-2 border-yellow-500"
+                      ? "font-bold border-b-2 border-blue-500"
                       : ""
                   }
                 >
@@ -152,7 +152,7 @@ function Navbar({ scrollToSection, home, activeSection }: NavbarProps) {
                 <li
                   className={
                     active === id
-                      ? "font-bold border-b-2 border-yellow-500"
+                      ? "font-bold border-b-2 border-blue-500"
                       : ""
                   }
                 >

@@ -136,7 +136,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
           {intl.formatMessage({ id: "contact.title" })}
         </h2>
         <div className="grid grid-cols-6 w-full rounded-lg overflow-hidden drop-shadow-md">
-          <div className="col-span-6 md:col-span-2 bg-yellow-300 w-full h-full flex flex-col p-6">
+          <div className="col-span-6 md:col-span-2 bg-blue-300 w-full h-full flex flex-col p-6">
             <h2 className="text-2xl font-semibold">
               {intl.formatMessage({ id: "contact.information" })}
             </h2>
@@ -231,7 +231,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
                 className={`${
                   formStatus === "DISABLED"
                     ? "bg-gray-200 cursor-not-allowed"
-                    : "bg-yellow-300"
+                    : "bg-blue-300"
                 } w-32 h-10 rounded-lg flex justify-center items-center`}
                 disabled={formStatus === "DISABLED"}
               >
