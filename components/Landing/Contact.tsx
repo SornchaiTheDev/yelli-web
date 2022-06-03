@@ -127,121 +127,125 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>(
     }, [form, selectedPlan]);
 
     return (
-      <div
-        ref={ref}
-        id="contact"
-        className="flex flex-col items-center my-2 w-full p-4"
-      >
-        <h2 className="text-2xl font-bold my-10">
-          {intl.formatMessage({ id: "contact.title" })}
-        </h2>
-        <div className="grid grid-cols-6 w-full rounded-lg overflow-hidden drop-shadow-md">
-          <div className="col-span-6 md:col-span-2 bg-blue-300 w-full h-full flex flex-col p-6">
-            <h2 className="text-2xl font-semibold">
-              {intl.formatMessage({ id: "contact.information" })}
-            </h2>
-            <p>{intl.formatMessage({ id: "contact.description" })}</p>
-            <div className="mt-4 flex flex-col gap-2">
-              <div className="inline-flex items-center gap-4">
-                <BsTelephone />
-                <h2>(+66) 090-240-1701</h2>
-              </div>
-              <div className="inline-flex items-center gap-4">
-                <AiOutlineMail />
-                <h2>contact@goodshot.com</h2>
+      <div className="flex justify-center">
+        <div
+          ref={ref}
+          id="contact"
+          className="flex flex-col items-center my-2 w-full md:w-3/4 p-4"
+        >
+          <h2 className="text-2xl font-bold my-10">
+            {intl.formatMessage({ id: "contact.title" })}
+          </h2>
+          <div className="grid grid-cols-6 w-full rounded-lg overflow-hidden drop-shadow-md">
+            <div className="col-span-6 md:col-span-2 bg-blue-300 w-full h-full flex flex-col p-6">
+              <h2 className="text-3xl font-semibold">
+                {intl.formatMessage({ id: "contact.information" })}
+              </h2>
+              <p className="mt-2">{intl.formatMessage({ id: "contact.description" })}</p>
+              <div className="mt-4 flex flex-col gap-2">
+                <div className="inline-flex items-center gap-4">
+                  <BsTelephone />
+                  <h2>(+66) 090-240-1701</h2>
+                </div>
+                <div className="inline-flex items-center gap-4">
+                  <AiOutlineMail />
+                  <h2>contact@goodshot.com</h2>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col-span-6 md:col-span-4 bg-white w-full h-full flex flex-col p-4">
-            {selectedPlan === null && (
-              <ul className="text-red-500 my-2">
-                <li>*{intl.formatMessage({ id: "contact.error.plan" })}</li>
-              </ul>
-            )}
-            {selectedPlan !== null && (
-              <div className="my-4 flex flex-col">
-                <button
-                  className="inline-flex items-center gap-1 self-end bg-red-500 rounded-lg p-1 text-white my-4"
-                  onClick={handleCancelPlan}
-                >
-                  <IoClose />
-                  <p>{intl.formatMessage({ id: "contact.package.cancel" })}</p>
-                </button>
-                <SelectedPlanCard plan={selectedPlan} />
-              </div>
-            )}
-            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-              {contact.map(
-                ({ name, placeholder, type, required, key, error }) => (
-                  <div key={name} className="flex flex-col gap-4">
-                    <label>
-                      {name} <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      required={required}
-                      onChange={(e) =>
-                        setForm({ ...form, [key]: e.target.value })
-                      }
-                      value={form[key as keyof FormI]}
-                      type={type}
-                      placeholder={placeholder}
-                      className={`rounded-lg ${
-                        errorStatus.find(
-                          (err) => err === `${key.toUpperCase()}_ERROR`
-                        ) && "border-red-500"
-                      }`}
-                    />
-                    {errorStatus.find(
-                      (err) => err === `${key.toUpperCase()}_ERROR`
-                    ) && <span className="text-red-500">*{error}</span>}
-                  </div>
-                )
+            <div className="col-span-6 md:col-span-4 bg-white w-full h-full flex flex-col p-4">
+              {selectedPlan === null && (
+                <p className="text-red-500 my-2">
+                  *{intl.formatMessage({ id: "contact.error.plan" })}
+                </p>
               )}
-
-              <label>
-                {intl.formatMessage({ id: "contact.form.phone" })}{" "}
-                <span className="text-red-500">*</span>
-              </label>
-              <PhoneInput
-                error={!!errorStatus.find((err) => err === "PHONE_ERROR")}
-                value={form.phone_number}
-                onValueChange={(dial_code: number, phone_number: string) => {
-                  setForm({ ...form, dial_code, phone_number });
-                }}
-              />
-              {errorStatus.includes("PHONE_ERROR") && (
-                <span className="text-red-500">
-                  *{intl.formatMessage({ id: "contact.error.phone" })}
-                </span>
+              {selectedPlan !== null && (
+                <div className="my-4 flex flex-col">
+                  <button
+                    className="inline-flex items-center gap-1 self-end bg-red-500 rounded-lg p-1 text-white my-4"
+                    onClick={handleCancelPlan}
+                  >
+                    <IoClose />
+                    <p>
+                      {intl.formatMessage({ id: "contact.package.cancel" })}
+                    </p>
+                  </button>
+                  <SelectedPlanCard plan={selectedPlan} />
+                </div>
               )}
-
-              <label>
-                {intl.formatMessage({ id: "contact.form.message" })}
-              </label>
-              <textarea
-                value={form.message}
-                className="rounded-lg"
-                placeholder={intl.formatMessage({
-                  id: "contact.form.message.placeholder",
-                })}
-                onChange={handleMessageChange}
-              />
-
-              <button
-                className={`${
-                  formStatus === "DISABLED"
-                    ? "bg-gray-200 cursor-not-allowed"
-                    : "bg-blue-300"
-                } w-32 h-10 rounded-lg flex justify-center items-center`}
-                disabled={formStatus === "DISABLED"}
-              >
-                {formStatus === "SUBMITTING" ? (
-                  <AiOutlineLoading3Quarters className="animate-spin fill-white text-2xl" />
-                ) : (
-                  <p>{intl.formatMessage({ id: "contact.form.send" })}</p>
+              <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                {contact.map(
+                  ({ name, placeholder, type, required, key, error }) => (
+                    <div key={name} className="flex flex-col gap-4">
+                      <label>
+                        {name} <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        required={required}
+                        onChange={(e) =>
+                          setForm({ ...form, [key]: e.target.value })
+                        }
+                        value={form[key as keyof FormI]}
+                        type={type}
+                        placeholder={placeholder}
+                        className={`rounded-lg ${
+                          errorStatus.find(
+                            (err) => err === `${key.toUpperCase()}_ERROR`
+                          ) && "border-red-500"
+                        }`}
+                      />
+                      {errorStatus.find(
+                        (err) => err === `${key.toUpperCase()}_ERROR`
+                      ) && <span className="text-red-500">*{error}</span>}
+                    </div>
+                  )
                 )}
-              </button>
-            </form>
+
+                <label>
+                  {intl.formatMessage({ id: "contact.form.phone" })}{" "}
+                  <span className="text-red-500">*</span>
+                </label>
+                <PhoneInput
+                  error={!!errorStatus.find((err) => err === "PHONE_ERROR")}
+                  value={form.phone_number}
+                  onValueChange={(dial_code: number, phone_number: string) => {
+                    setForm({ ...form, dial_code, phone_number });
+                  }}
+                />
+                {errorStatus.includes("PHONE_ERROR") && (
+                  <span className="text-red-500">
+                    *{intl.formatMessage({ id: "contact.error.phone" })}
+                  </span>
+                )}
+
+                <label>
+                  {intl.formatMessage({ id: "contact.form.message" })}
+                </label>
+                <textarea
+                  value={form.message}
+                  className="rounded-lg"
+                  placeholder={intl.formatMessage({
+                    id: "contact.form.message.placeholder",
+                  })}
+                  onChange={handleMessageChange}
+                />
+
+                <button
+                  className={`${
+                    formStatus === "DISABLED"
+                      ? "bg-gray-200 cursor-not-allowed"
+                      : "bg-blue-300"
+                  } w-32 h-10 rounded-lg flex justify-center items-center`}
+                  disabled={formStatus === "DISABLED"}
+                >
+                  {formStatus === "SUBMITTING" ? (
+                    <AiOutlineLoading3Quarters className="animate-spin fill-white text-2xl" />
+                  ) : (
+                    <p>{intl.formatMessage({ id: "contact.form.send" })}</p>
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

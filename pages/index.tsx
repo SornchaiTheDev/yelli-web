@@ -69,7 +69,7 @@ function Index() {
       />
       <Hero plansRef={plansRef} ref={heroRef} />
       <SocialProof />
-      <Scroll />
+
       <div className="container mx-auto">
         <Features />
         <Plans

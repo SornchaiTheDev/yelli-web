@@ -42,22 +42,7 @@ function Features() {
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 my-14 p-6 w-full">
-      <ImageGrid
-        imgset={[
-          {
-            src: "https://storage.googleapis.com/yelli-bebb3.appspot.com/assets/54090.jpg",
-          },
-          {
-            src: "https://storage.googleapis.com/yelli-bebb3.appspot.com/assets/54091.jpg",
-          },
-          {
-            src: "https://storage.googleapis.com/yelli-bebb3.appspot.com/assets/54094.jpg",
-          },
-          {
-            src: "https://storage.googleapis.com/yelli-bebb3.appspot.com/assets/54098.jpg",
-          },
-        ]}
-      />
+     
       <div className="grid grid-cols-2 gap-10 md:gap-6 mt-4 md:mt-0">
         {features.map(({ heading, body }, i) => (
           <Feature

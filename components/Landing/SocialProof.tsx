@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function SocialProof() {
   return (
-    <div className="bg-gray-50 flex flex-col justify-center items-center py-10">
+    <div className="bg-gray-50 flex flex-col justify-center items-center py-10 px-4">
       <h2 className="text-3xl font-bold my-4">Trusted by 5,000 companies</h2>
       <p className="max-w-4xl text-center">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. At, incidunt
@@ -29,7 +29,7 @@ function SocialProof() {
             key={src}
             className="bg-white rounded-lg col-span-1 inline-flex justify-center py-4 grayscale shadow-sm"
           >
-            <Image src={src} layout="fixed" width={64} height={64} />
+            <Image src={src} layout="fixed" width={64} height={64} alt="social proof" />
           </div>
         ))}
       </div>

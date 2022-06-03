@@ -6,15 +6,10 @@ html {
     padding : 0;
     margin : 0;
     color : #06113C;
+    font-family:  'Kanit' , "Dosis";
+
 }
 
-h1 {
-    font-family: 'Pacifico', cursive , 'Arial';
-}
-
-h2 {
-    font-family:  'Arial' , "Apple Color Emoji" , "Segoe UI Emoji" , "Segoe UI Symbol" , "Noto Color Emoji";
-}
 
 input[type="range"]::-webkit-slider-thumb {
     width: 20px;
@@ -24,6 +19,6 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: ew-resize;
     border: 2px solid #000;
     background: #fff;
-    box-shadow: -405px 0 0 400px #facc15;
+    box-shadow: -405px 0 0 400px rgb(147 197 253);
     border-radius: 50%;
   }

@@ -55,7 +55,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(({ plansRef }, ref) => {
           </div>
 
           <video
-            className="w-full lg:w-1/2 rounded-lg"
+            className="w-full lg:w-1/2 rounded-lg drop-shadow-lg"
             autoPlay
             loop
             muted
