@@ -39,5 +39,7 @@
     "contact.package.cancel" : "Cancel Plan",
     "gallery.title" : "Gallery",
     "gallery.photos" : "Photo",
-    "gallery.back" : "Back to Gallery"
+    "gallery.back" : "Back to Gallery",
+    "gallery.photo.uploading" : "Your photo is uploading",
+    "gallery.photo.uploading.wait" : "Please wait for a while"
 }

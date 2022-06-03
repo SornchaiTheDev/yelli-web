@@ -39,5 +39,7 @@
     "contact.package.cancel" : "ยกเลิกแพ็คเกจ",
     "gallery.title" : "แกลเลอรี่",
     "gallery.photos" : "รูป",
-    "gallery.back" : "กลับไปยังแกลเลอรี่"
+    "gallery.back" : "กลับไปยังแกลเลอรี่",
+    "gallery.photo.uploading" : "รูปของคุณกำลังอัพโหลด",
+    "gallery.photo.uploading.wait" : "กรุณารอสักครู่"
 }

@@ -61,7 +61,11 @@ const BigImage = ({
         >
           <IoClose size="1.25rem" />
         </div>
-        <div className="flex flex-col justify-center items-center cursor-default bg-white rounded-lg p-6">
+
+        <div
+          className="flex flex-col justify-center items-center cursor-default bg-white rounded-lg p-6"
+          ref={content}
+        >
           <Uploading />
         </div>
       </div>
