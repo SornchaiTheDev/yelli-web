@@ -7,6 +7,7 @@ import { ref, getBlob } from "firebase/storage";
 import { storage } from "../../firebase";
 import Image from "next/image";
 import useClickOutSide from "@hooks/useClickOutside";
+import Uploading from "./Uploading";
 
 const BigImage = ({
   src,
@@ -42,7 +43,7 @@ const BigImage = ({
   };
 
   useEffect(() => {
-    handleDownload();
+    if (src !== "uploading") handleDownload();
   });
 
   useEffect(() => {
@@ -50,6 +51,21 @@ const BigImage = ({
       onClose();
     }
   }, [isOutside, onClose]);
+
+  if (src === "uploading")
+    return (
+      <div className="fixed top-0 left-0 z-50 w-full h-screen bg-[rgba(0,0,0,.5)] flex flex-col justify-center items-center cursor-pointer">
+        <div
+          className="absolute top-6 right-6 w-fit h-fit bg-white shadow-md p-2 rounded-full cursor-pointer"
+          onClick={onClose}
+        >
+          <IoClose size="1.25rem" />
+        </div>
+        <div className="flex flex-col justify-center items-center cursor-default bg-white rounded-lg p-6">
+          <Uploading />
+        </div>
+      </div>
+    );
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full h-screen bg-[rgba(0,0,0,.5)] p-4 flex flex-col justify-center items-center cursor-pointer">
@@ -63,6 +79,7 @@ const BigImage = ({
         ref={downloadImage}
         download={`${eventName}_${src.split("/")[src.split("/").length - 1]}`}
       ></a>
+
       <div
         className="w-full md:w-2/3 flex flex-col justify-center items-center cursor-default"
         ref={content}

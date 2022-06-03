@@ -7,6 +7,7 @@ export type InEventProps = {
   name: string;
   date: Date;
   amount: number;
+  queryPhoto: PhotoI | null;
 };
 
 export interface EventProps {

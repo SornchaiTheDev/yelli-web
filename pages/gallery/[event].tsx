@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import Navbar from "@components/common/Navbar";
-import { AiOutlineCalendar, AiOutlineFileImage, AiOutlineLoading3Quarters } from "react-icons/ai";
+import {
+  AiOutlineCalendar,
+  AiOutlineFileImage,
+  AiOutlineLoading3Quarters,
+} from "react-icons/ai";
 import ImagePreview from "@components/Gallery/ImagePreview";
 import BackToGallery from "@components/Gallery/Buttons/BackToGallery";
 import BigImage from "@components/Gallery/BigImage";
@@ -12,14 +16,29 @@ import useInfiniteScroll from "react-infinite-scroll-hook";
 import useFetchPhoto from "@hooks/useFetchPhoto";
 import { useIntl } from "react-intl";
 import { useRouter } from "next/router";
+import { store } from "../../firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  getDocs,
+  Timestamp,
+  query,
+  orderBy,
+  limit,
+} from "firebase/firestore";
 
-function Event({ photos, name, date, amount, id }: InEventProps) {
+function Event({ photos, name, date, amount, id, queryPhoto }: InEventProps) {
   const intl = useIntl();
   const { locale } = useRouter();
+
   const [photosAlbum, setPhotosAlbum] = useState<PhotoI[]>(photos);
-  const [previewImg, setPreviewImg] = useState<{ src: string | null }>({
-    src: null,
-  });
+  const [previewImg, setPreviewImg] = useState<PhotoI>(
+    queryPhoto || {
+      src: null,
+    }
+  );
   const clearPreviewImg = () => setPreviewImg({ src: null });
   const { fetchPhoto, loading, hasNextPage, error, setLastPhoto } =
     useFetchPhoto(id, photosAlbum.length, photos[photos.length - 1]);
@@ -46,11 +65,26 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
     }, 50);
   };
 
+  /* handle on image status is uploading */
+  const handleOnPhotoIsUploading = async () => {
+    if (previewImg.src === "uploading") {
+      const photoRef = doc(store, "events", id, "photos", previewImg.id!);
+
+      onSnapshot(photoRef, (doc) => {
+        if (doc.data()!.src !== "uploading") {
+          setPreviewImg({ src: doc.data()!.src });
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    handleOnPhotoIsUploading();
+  }, []);
+
   return (
     <>
-      <title>
-        Phuket Instant Print - Gallery
-      </title>
+      <title>Phuket Instant Print - Gallery</title>
       {previewImg.src !== null && (
         <BigImage
           src={previewImg.src!}
@@ -95,10 +129,10 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
           </div>
           <div ref={sentryRef} />
           {loading && hasNextPage && (
-          <div className="flex justify-center mt-18">
-            <AiOutlineLoading3Quarters className="animate-spin fill-blue-500 text-2xl" />
-          </div>
-        )}
+            <div className="flex justify-center mt-18">
+              <AiOutlineLoading3Quarters className="animate-spin fill-blue-500 text-2xl" />
+            </div>
+          )}
         </div>
       </div>
     </>
@@ -107,17 +141,6 @@ function Event({ photos, name, date, amount, id }: InEventProps) {
 
 export default Event;
 
-import { store } from "../../firebase";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  Timestamp,
-  query,
-  orderBy,
-  limit,
-} from "firebase/firestore";
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const id = ctx.query.event as string;
   const eventRef = doc(store, "events", id);
@@ -132,9 +155,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     amount: number;
   };
 
-  photoQuery.forEach((photo) =>
-    photos.push({ src: photo.data().src, id: photo.id })
-  );
+  photoQuery.forEach((photo) => {
+    if (photo.data().src !== "uploading") {
+      photos.push({ src: photo.data().src, id: photo.id });
+    }
+  });
+
+  let queryPhoto: PhotoI | null = null;
+  if (ctx.query.p) {
+    const p = ctx.query.p as string;
+    const photoRef = doc(store, "events", id, "photos", p);
+    const photo = await getDoc(photoRef);
+    if (photo.exists()) {
+      queryPhoto = { src: photo.data()!.src, id: photo.id };
+    }
+  }
   return {
     props: {
       id,
@@ -142,6 +177,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       name,
       date: date.toDate().toString(),
       amount,
+      queryPhoto,
     },
   };
 };
