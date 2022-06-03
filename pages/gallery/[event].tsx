@@ -80,7 +80,7 @@ function Event({ photos, name, date, amount, id, queryPhoto }: InEventProps) {
 
   useEffect(() => {
     handleOnPhotoIsUploading();
-  }, []);
+  }, [handleOnPhotoIsUploading]);
 
   return (
     <>
