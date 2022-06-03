@@ -36,7 +36,7 @@ const useFetchPhoto = (id: string, clientAmount: number, lastPhoto: PhotoI) => {
     const _photo: PhotoI[] = [];
     try {
       const lastPhotoSnap = await getDoc(
-        doc(store, "events", id, "photos", _lastPhoto.id)
+        doc(store, "events", id, "photos", _lastPhoto.id!)
       );
 
       const q = query(
