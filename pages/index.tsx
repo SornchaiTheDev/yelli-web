@@ -12,6 +12,7 @@ import useWindow from "@hooks/useWindow";
 import { useRouter } from "next/router";
 import Scroll from "@components/Landing/Scroll";
 import SocialProof from "@components/Landing/SocialProof";
+import Diff from "@components/Landing/Diff";
 
 function Index() {
   const router = useRouter();
@@ -71,7 +72,8 @@ function Index() {
       <SocialProof />
 
       <div className="container mx-auto">
-        <Features />
+        {/* <Diff /> */}
+        {/* <Features /> */}
         <Plans
           ref={plansRef}
           contactRef={contactRef}
